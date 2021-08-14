@@ -3,13 +3,11 @@ author: ms802x
 email: alhejab.ee@gmail.com
 
 description: > # this means to ignore newlines until "show_exerpts:"
-
-  Hey there! I'm Ali. I study electrical engineering at KFUPM, and I love
-  reading about electronics, data science, computer vision, and AI.
-  In this blog, I will be writing mainly about electrical engineering and programming-related topics.
+  I'm electrical engineering student at KFUPM. Currently living at Saudi Arabia, Eastern Province
+  and I love reading about technology, data science, computer vision and AI. 
 
 show_excerpts: true # set to true to show excerpts on the homepage
-paginate: 1
+paginate: 3
 paginate_path: "/blog/page:num/"
 
 
@@ -36,7 +34,8 @@ dash:
   animation_speed: 50
 
 # Build settings
-remote_theme: bitbrain/jekyll-dash
+#remote_theme: bitbrain/jekyll-dash
+theme: jekyll-dash
 
 plugins:
  - jekyll-feed
@@ -47,5 +46,5 @@ plugins:
 # Replaces the default avatar provider (gravatar)
 avatar_source: github
 github_username: ms802x
-#avatar_source: local
-#avatar_path: /assets/avatar.png
+avatar_source: local
+avatar_path: /assets/mo.jpg
