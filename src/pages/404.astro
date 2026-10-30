@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+---
+
+<BaseLayout title="Page not found" description="That page does not exist." noindex={true}>
+  <section class="not-found">
+    <div class="shell">
+      <p class="not-found-code">404 / NOT FOUND</p>
+      <h1>This page didn't make it to production.</h1>
+      <p>
+        The link may be old, or the page may have moved. The writing and the rest of the site are
+        still here.
+      </p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="/">Back home <Icon name="arrow-right" size={16} /></a>
+        <a class="button button-ghost" href="/blog/">Read the writing</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

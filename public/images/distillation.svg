@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Knowledge distillation illustration</title>
+  <desc id="desc">A large teacher network passing soft labels to a smaller student network.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0c1113"/>
+      <stop offset="1" stop-color="#141513"/>
+    </linearGradient>
+    <radialGradient id="warm" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#fbbf24" stop-opacity=".2"/>
+      <stop offset="1" stop-color="#fbbf24" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" fill="#f3d8a2" fill-opacity=".1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <rect width="1200" height="675" fill="url(#dots)"/>
+  <circle cx="765" cy="300" r="290" fill="url(#warm)"/>
+  <text x="70" y="76" fill="#fbbf24" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="15" letter-spacing="4">02 / DISTILLATION</text>
+  <text x="1130" y="76" fill="#7a7566" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" text-anchor="end">TEACHER → STUDENT</text>
+
+  <g transform="translate(90 170)">
+    <rect x="0" y="0" width="355" height="300" rx="18" fill="#121717" stroke="#3b3529"/>
+    <text x="24" y="36" fill="#8e8777" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" letter-spacing="2">TEACHER / LARGE</text>
+    <g fill="#fbbf24">
+      <circle cx="70" cy="105" r="13"/><circle cx="70" cy="170" r="13"/><circle cx="70" cy="235" r="13"/>
+      <circle cx="180" cy="80" r="10"/><circle cx="180" cy="135" r="10"/><circle cx="180" cy="190" r="10"/><circle cx="180" cy="245" r="10"/>
+      <circle cx="290" cy="120" r="11"/><circle cx="290" cy="195" r="11"/>
+    </g>
+    <g stroke="#a88128" stroke-opacity=".5">
+      <path d="M83 105 170 80M83 105 170 135M83 170 170 135M83 170 170 190M83 235 170 190M83 235 170 245"/>
+      <path d="M190 80 279 120M190 135 279 120M190 135 279 195M190 190 279 195M190 245 279 195"/>
+    </g>
+  </g>
+
+  <g stroke="#fbbf24" stroke-opacity=".8" stroke-width="2">
+    <path d="M462 320h112" stroke-dasharray="3 8"/>
+    <path d="m563 310 14 10-14 10" fill="none"/>
+  </g>
+  <text x="518" y="292" fill="#b8a77f" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" text-anchor="middle" letter-spacing="2">SOFT LABELS</text>
+
+  <g transform="translate(592 205)">
+    <rect x="0" y="0" width="250" height="230" rx="18" fill="#121717" stroke="#5d512f"/>
+    <text x="22" y="34" fill="#8e8777" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" letter-spacing="2">STUDENT / SMALL</text>
+    <g fill="#5eead4">
+      <circle cx="65" cy="110" r="14"/><circle cx="65" cy="180" r="14"/>
+      <circle cx="170" cy="85" r="10"/><circle cx="170" cy="145" r="10"/><circle cx="170" cy="205" r="10"/>
+    </g>
+    <g stroke="#2f8d83">
+      <path d="M79 110 160 85M79 110 160 145M79 180 160 145M79 180 160 205"/>
+    </g>
+  </g>
+
+  <g transform="translate(902 214)">
+    <text x="0" y="0" fill="#8e8777" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" letter-spacing="2">OUTPUT DIST.</text>
+    <g>
+      <rect x="0" y="26" width="200" height="10" rx="5" fill="#242320"/><rect x="0" y="26" width="134" height="10" rx="5" fill="#fbbf24"/>
+      <rect x="0" y="58" width="200" height="10" rx="5" fill="#242320"/><rect x="0" y="58" width="88" height="10" rx="5" fill="#fbbf24"/>
+      <rect x="0" y="90" width="200" height="10" rx="5" fill="#242320"/><rect x="0" y="90" width="52" height="10" rx="5" fill="#fbbf24"/>
+    </g>
+    <text x="0" y="140" fill="#5f7773" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">rank preserved</text>
+    <text x="0" y="164" fill="#5f7773" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">calibration ≠</text>
+  </g>
+
+  <text x="70" y="548" fill="#f5f1e8" font-family="'Instrument Sans', ui-sans-serif, sans-serif" font-size="40" font-weight="600" letter-spacing="-1.4">The teacher is a dataset.</text>
+  <text x="70" y="590" fill="#a49b88" font-family="'Instrument Sans', ui-sans-serif, sans-serif" font-size="21">Audit its labels, its blind spots, and its taxonomy.</text>
+  <text x="70" y="638" fill="#6d6657" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" letter-spacing="2">SAMPLE VISUAL / ILLUSTRATIVE</text>
+</svg>

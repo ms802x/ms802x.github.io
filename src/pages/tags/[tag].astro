@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import type { BlogPost } from '../../lib/posts';
+import { getPosts, getTags, tagSlug } from '../../lib/posts';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  const tags = getTags(posts);
+
+  return tags.map((tag) => ({
+    params: { tag: tag.slug },
+    props: {
+      tagName: tag.name,
+      posts: posts.filter((post) => post.data.tags.some((name) => tagSlug(name) === tag.slug)),
+    },
+  }));
+}
+
+interface Props {
+  tagName: string;
+  posts: BlogPost[];
+}
+
+const { tagName, posts } = Astro.props;
+---
+
+<BaseLayout
+  title={`${tagName} — Writing`}
+  description={`Posts tagged ${tagName}: practical notes on AI engineering.`}
+>
+  <header class="page-header">
+    <div class="shell page-header-grid">
+      <div>
+        <p class="page-kicker eyebrow">Tag</p>
+        <h1 class="page-title">{tagName}.</h1>
+      </div>
+      <p class="page-lede">
+        {posts.length} {posts.length === 1 ? 'post' : 'posts'} on this topic. Back to <a class="text-link" href="/blog/">all writing</a>.
+      </p>
+    </div>
+  </header>
+
+  <div class="shell">
+    <div class="blog-list">
+      {posts.map((post, index) => <PostCard post={post} index={index} headingLevel={2} />)}
+    </div>
+  </div>
+</BaseLayout>
