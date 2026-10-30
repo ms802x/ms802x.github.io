@@ -181,6 +181,12 @@ const jsonLd = {
   description="Curriculum vitae of Ali A. Alhejab — Lead AI Engineer at HUMAIN, working on agentic AI, real-time avatars, and generative image and video systems."
   jsonLd={jsonLd}
 >
+  <div class="cv-denoise-layer" aria-hidden="true"></div>
+  <div class="cv-denoise-status" id="cv-denoise-status" role="status" hidden>
+    <span class="cv-denoise-pulse" aria-hidden="true"></span>
+    Denoising · <span id="cv-denoise-steps">50</span> steps
+  </div>
+
   <header class="page-header cv-page-header">
     <div class="shell">
       <p class="page-kicker eyebrow">Curriculum Vitae</p>
@@ -190,6 +196,15 @@ const jsonLd = {
           <p class="cv-role">Lead AI Engineer · HUMAIN · Riyadh</p>
         </div>
         <div class="cv-header-actions">
+          <button
+            class="button button-ghost cv-denoise-button"
+            id="cv-denoise-button"
+            type="button"
+            title="Run a diffusion-style denoising pass over the CV"
+          >
+            <span class="cv-denoise-dot" aria-hidden="true"></span>
+            Denoise
+          </button>
           <a class="button button-primary" href="/cv/Ali-Alhejab-CV.pdf" download>
             Download PDF <Icon name="arrow-up-right" size={16} />
           </a>
@@ -329,4 +344,44 @@ const jsonLd = {
       </aside>
     </div>
   </div>
+
+  <script>
+    const denoiseButton = document.getElementById('cv-denoise-button') as HTMLButtonElement | null;
+    const denoiseStatus = document.getElementById('cv-denoise-status');
+    const denoiseSteps = document.getElementById('cv-denoise-steps');
+
+    if (denoiseButton && denoiseStatus && denoiseSteps) {
+      denoiseButton.addEventListener('click', () => {
+        if (document.documentElement.classList.contains('cv-denoising')) return;
+
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const duration = reduceMotion ? 350 : 1800;
+        let step = 50;
+        let timer: number | undefined;
+
+        document.documentElement.classList.add('cv-denoising');
+        denoiseStatus.hidden = false;
+        denoiseButton.disabled = true;
+        denoiseButton.classList.add('is-running');
+        denoiseSteps.textContent = String(step);
+
+        if (!reduceMotion) {
+          timer = window.setInterval(() => {
+            step = step <= 8 ? 4 : Math.max(4, Math.round(step * 0.82));
+            denoiseSteps.textContent = String(step);
+            if (step === 4 && timer) window.clearInterval(timer);
+          }, 100);
+        }
+
+        window.setTimeout(() => {
+          if (timer) window.clearInterval(timer);
+          document.documentElement.classList.remove('cv-denoising');
+          denoiseStatus.hidden = true;
+          denoiseButton.disabled = false;
+          denoiseButton.classList.remove('is-running');
+        }, duration);
+      });
+    }
+  </script>
+
 </BaseLayout>

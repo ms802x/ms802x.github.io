@@ -18,6 +18,7 @@ See [CHECKLIST.md](CHECKLIST.md) for the short list of manual launch steps.
 - `@astrojs/rss` and `@astrojs/sitemap`
 - Dark-first interface with a light-mode toggle
 - Animated neural-network field on the landing page and password screen
+- Interactive diffusion-style “Denoise” pass on the CV page
 - Optional client-side password gate (enabled by default)
 - Self-hosted variable fonts (Instrument Sans, JetBrains Mono, Noto Sans Arabic)
 - GitHub Actions → GitHub Pages

@@ -3734,3 +3734,143 @@ html.locked .site-gate::before {
     animation: none !important;
   }
 }
+
+/* ---------- CV denoise pass ---------- */
+
+.cv-denoise-button {
+  gap: 0.5rem;
+}
+
+.cv-denoise-dot {
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+.cv-denoise-button.is-running .cv-denoise-dot {
+  animation: cv-denoise-dot 0.8s ease-in-out infinite;
+}
+
+.cv-denoise-button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.cv-denoise-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 450;
+  pointer-events: none;
+  opacity: 0;
+  background-image: url('/images/noise.png');
+  background-size: 150px 150px;
+  background-repeat: repeat;
+  mix-blend-mode: screen;
+}
+
+.cv-denoise-status {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  z-index: 451;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 90%, transparent);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.03em;
+  transform: translateX(-50%);
+  backdrop-filter: blur(8px);
+}
+
+.cv-denoise-status[hidden] {
+  display: none;
+}
+
+.cv-denoise-pulse {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: cv-denoise-dot 0.8s ease-in-out infinite;
+}
+
+html.cv-denoising .cv-page-header,
+html.cv-denoising .cv-body {
+  animation: cv-denoise-resolve 1.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+html.cv-denoising .cv-denoise-layer {
+  animation: cv-denoise-noise 1.8s ease-out both;
+}
+
+@keyframes cv-denoise-resolve {
+  0% {
+    filter: blur(10px) saturate(0.7);
+    opacity: 0.35;
+  }
+
+  45% {
+    filter: blur(3px) saturate(0.9);
+    opacity: 0.78;
+  }
+
+  100% {
+    filter: none;
+    opacity: 1;
+  }
+}
+
+@keyframes cv-denoise-noise {
+  0% {
+    opacity: 0.65;
+    background-position: 0 0;
+  }
+
+  35% {
+    opacity: 0.42;
+  }
+
+  100% {
+    opacity: 0;
+    background-position: 160px 80px;
+  }
+}
+
+@keyframes cv-denoise-dot {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.85);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.cv-denoising .cv-page-header,
+  html.cv-denoising .cv-body,
+  html.cv-denoising .cv-denoise-layer,
+  .cv-denoise-pulse,
+  .cv-denoise-button.is-running .cv-denoise-dot {
+    animation: none !important;
+  }
+}
+
+@media print {
+  .cv-denoise-layer,
+  .cv-denoise-status,
+  .cv-denoise-button {
+    display: none !important;
+  }
+}
