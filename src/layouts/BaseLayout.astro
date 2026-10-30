@@ -48,7 +48,7 @@ const structuredData = jsonLd
 ---
 
 <!doctype html>
-<html lang={lang} class={SITE_GATE_ENABLED ? 'locked' : undefined}>
+<html lang={lang} data-theme="dark" class={SITE_GATE_ENABLED ? 'locked' : undefined}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -67,15 +67,10 @@ const structuredData = jsonLd
       (() => {
         try {
           const stored = localStorage.getItem('theme');
-          const theme =
-            stored === 'light' || stored === 'dark'
-              ? stored
-              : window.matchMedia('(prefers-color-scheme: dark)').matches
-                ? 'dark'
-                : 'light';
-          document.documentElement.dataset.theme = theme;
+          document.documentElement.dataset.theme =
+            stored === 'light' || stored === 'dark' ? stored : 'dark';
         } catch {
-          document.documentElement.dataset.theme = 'light';
+          document.documentElement.dataset.theme = 'dark';
         }
       })();
     </script>
@@ -140,8 +135,7 @@ const structuredData = jsonLd
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={imageURL} />
 
-    <meta name="theme-color" content="#f7f6f2" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0c0f10" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#0c0f10" />
 
     {structuredData && <script type="application/ld+json" set:html={structuredData} />}
   </head>
@@ -166,6 +160,7 @@ const structuredData = jsonLd
         const isDark = root.dataset.theme === 'dark';
         button.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
         button.setAttribute('title', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', isDark ? '#0c0f10' : '#f7f6f2');
       }
 
       document.getElementById('theme-toggle')?.addEventListener('click', () => {

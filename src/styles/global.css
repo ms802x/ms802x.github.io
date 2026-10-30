@@ -2908,10 +2908,29 @@ html.locked .site-gate::before {
 }
 
 @media print {
+  @page {
+    size: A4;
+    margin: 10mm;
+  }
+
+  :root,
+  :root[data-theme='dark'] {
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --surface-muted: #ffffff;
+    --ink: #111111;
+    --ink-soft: #222222;
+    --muted: #4b4b4b;
+    --faint: #666666;
+    --line: #d4d4d4;
+    --line-strong: #b8b8b8;
+    --accent: #0f766e;
+  }
+
   .cv-page-header .cv-header-actions,
-  .cv-contact-line,
   .site-header,
-  .site-footer {
+  .site-footer,
+  .neural-mesh {
     display: none !important;
   }
 
@@ -2920,18 +2939,35 @@ html.locked .site-gate::before {
     border: 0;
   }
 
+  .cv-page-header .page-title {
+    font-size: 1.85rem;
+  }
+
+  .cv-role {
+    margin-top: 0.25rem;
+    font-size: 0.78rem;
+  }
+
+  .cv-contact-line {
+    margin-top: 0.45rem;
+    font-size: 0.56rem;
+  }
+
   .cv-body {
     padding: 0;
   }
 
   .cv-grid {
-    display: block;
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(11rem, 0.45fr);
+    gap: 1.1rem;
+    align-items: start;
   }
 
   .cv-aside {
     position: static;
     display: block;
-    margin-top: 1.5rem;
+    margin-top: 0;
   }
 
   .cv-aside .cv-section {
@@ -2942,13 +2978,265 @@ html.locked .site-gate::before {
   }
 
   .cv-aside .cv-section + .cv-section {
-    margin-top: 1.5rem;
-    padding-top: 0;
-    border-top: 0;
+    margin-top: 0.65rem;
+    padding-top: 0.55rem;
+    border-top: 1px solid var(--line);
   }
 
   .cv-section + .cv-section {
-    margin-top: 1.5rem;
-    padding-top: 1rem;
+    margin-top: 0.75rem;
+    padding-top: 0.65rem;
+  }
+
+  .cv-section h2 {
+    font-size: 0.55rem;
+    letter-spacing: 0.08em;
+  }
+
+  .cv-summary {
+    margin-top: 0.35rem;
+    font-size: 0.67rem;
+    line-height: 1.45;
+  }
+
+  .cv-role-list {
+    gap: 0.55rem;
+    margin-top: 0.5rem;
+  }
+
+  .cv-role h3,
+  .cv-education h3,
+  .cv-cert-list h3,
+  .cv-publication h3 {
+    font-size: 0.68rem;
+    line-height: 1.3;
+  }
+
+  .cv-org,
+  .cv-role-intro,
+  .cv-bullets li,
+  .cv-publication p,
+  .cv-degree,
+  .cv-detail,
+  .cv-skill dd,
+  .cv-cert-list p,
+  .cv-award-list li,
+  .cv-award-list span {
+    font-size: 0.6rem;
+    line-height: 1.35;
+  }
+
+  .cv-date {
+    font-size: 0.53rem;
+  }
+
+  .cv-bullets {
+    gap: 0.1rem;
+    margin-top: 0.25rem;
+    padding-left: 0.8rem;
+  }
+
+  .cv-bullets li {
+    padding-left: 0.08rem;
+  }
+
+  .cv-publications {
+    gap: 0.45rem;
+    margin-top: 0.45rem;
+  }
+
+  .cv-publication {
+    padding-left: 1.3rem;
+  }
+
+  .cv-publication::before {
+    font-size: 0.5rem;
+  }
+
+  .cv-publication h3 {
+    margin-top: 0.12rem;
+    font-size: 0.63rem;
+  }
+
+  .cv-publication p {
+    margin-top: 0.1rem;
+  }
+
+  .cv-publication-meta {
+    font-size: 0.48rem;
+  }
+
+  .cv-section-head {
+    margin-bottom: 0.4rem;
+  }
+
+  .cv-section-head .section-link {
+    display: none;
+  }
+
+  .cv-aside .cv-section h2 {
+    margin-bottom: 0.4rem;
+  }
+
+  .cv-education-list {
+    gap: 0.55rem;
+  }
+
+  .cv-degree {
+    margin-top: 0.25rem;
+  }
+
+  .cv-skills {
+    gap: 0.35rem;
+  }
+
+  .cv-skill dt {
+    font-size: 0.48rem;
+  }
+
+  .cv-skill dd {
+    margin-top: 0.08rem;
+  }
+
+  .cv-cert-list,
+  .cv-award-list {
+    gap: 0.35rem;
+  }
+
+  .cv-award-list span {
+    margin-top: 0.06rem;
+  }
+
+  .cv-role,
+  .cv-publication,
+  .cv-education,
+  .cv-cert-list li,
+  .cv-award-list li {
+    break-inside: avoid;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+/* ---------- Neural mesh ---------- */
+
+.neural-mesh {
+  pointer-events: none;
+  color: var(--accent);
+}
+
+.neural-mesh svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-neural {
+  position: absolute;
+  top: -4rem;
+  right: -7%;
+  width: min(57vw, 48rem);
+  opacity: 0.52;
+  z-index: 0;
+  mask-image: radial-gradient(ellipse at 55% 48%, black 5%, transparent 72%);
+}
+
+.hero .shell {
+  position: relative;
+  z-index: 1;
+}
+
+.nm-active-links path {
+  stroke-dasharray: 2 11;
+  stroke-opacity: 0.7;
+  animation: nm-flow 12s linear infinite;
+}
+
+.nm-node-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: nm-pulse 4.5s ease-in-out infinite;
+}
+
+.nm-node-pulse:nth-of-type(2n) {
+  animation-delay: -1.7s;
+}
+
+.nm-node-pulse:nth-of-type(3n) {
+  animation-delay: -3.1s;
+}
+
+@keyframes nm-flow {
+  to {
+    stroke-dashoffset: -130;
+  }
+}
+
+@keyframes nm-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.9);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.35);
+  }
+}
+
+.cv-neural {
+  position: absolute;
+  top: -8rem;
+  right: -4%;
+  width: min(43vw, 34rem);
+  opacity: 0.35;
+  z-index: 0;
+  mask-image: radial-gradient(ellipse at 52% 48%, black 8%, transparent 72%);
+}
+
+.cv-page-header {
+  position: relative;
+  overflow: hidden;
+}
+
+.cv-page-header .shell {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 900px) {
+  .hero-neural {
+    width: 70vw;
+    right: -22%;
+    opacity: 0.3;
+  }
+
+  .cv-neural {
+    right: -20%;
+    width: 60vw;
+    opacity: 0.22;
+  }
+}
+
+@media (max-width: 720px) {
+  .hero-neural {
+    top: 2rem;
+    right: -38%;
+    width: 95vw;
+    opacity: 0.22;
+  }
+
+  .cv-neural {
+    display: none;
   }
 }
