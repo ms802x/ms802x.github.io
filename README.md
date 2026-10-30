@@ -1,7 +1,8 @@
 # Aalhejab — AI Engineer
 
-A fast, static personal profile and technical blog built with **Astro 7**. Markdown/MDX
-in, static HTML out. No database, no client framework, no trackers.
+A fast, static personal profile, CV, and technical blog for Ali Alhejab, built with
+**Astro 7**. Markdown/MDX in, static HTML out. No database, no client framework, no
+trackers.
 
 The site ships with a client-side password gate, eight draft sample posts (including
 one Arabic RTL post), a publications page with citation placeholders, and a
@@ -132,7 +133,7 @@ Edit these files before publishing:
 
 | File | What to change |
 | --- | --- |
-| `src/consts.ts` | Name, role, email, GitHub, LinkedIn, X, Hugging Face, Google Scholar |
+| `src/consts.ts` | Name, role, email, GitHub, X, Google Scholar |
 | `astro.config.mjs` | Fallback `site` URL used outside the GitHub Actions deployment |
 | `.github/workflows/deploy.yml` | Draft visibility, password secret, optional `SITE_URL` override |
 | `.env.example` | Local password gate settings |
@@ -140,7 +141,7 @@ Edit these files before publishing:
 | `public/favicon.svg`, `public/icon-*.png` | Icons |
 | `src/pages/publications.astro` | Replace the IEEE and Springer citation placeholders |
 
-Search for `yourusername` and the Google Scholar placeholder to catch remaining placeholders.
+The main profile links are configured in `src/consts.ts`.
 
 ## Deploy to GitHub Pages
 
@@ -203,6 +204,8 @@ public/                        Fonts, images, icons, OG card
 src/components/                Header, footer, cards, TOC, icons, password gate
 src/content/_template.md       Copy this to add a post
 src/content/blog/              Markdown posts
+src/pages/cv.astro            CV page
+public/cv/                    Downloadable CV PDF
 src/layouts/                   Base and post layouts
 src/lib/posts.ts               Sorting, drafts, tags, reading time
 src/pages/                     Routes (home, blog, tags, RSS, robots, 404)
@@ -210,11 +213,12 @@ src/styles/global.css          Design tokens, dark mode, typography
 ```
 
 The font files in `public/fonts/` are licensed under the SIL Open Font License;
-their license texts are included in the same directory.
+their license texts are included in the same directory. Update the PDF in `public/cv/`
+whenever the CV changes.
 
 ## Manual checklist
 
-- [ ] Replace the remaining LinkedIn, Hugging Face, and Google Scholar placeholders in `src/consts.ts`.
+- [ ] The profile links in `src/consts.ts` are up to date.
 - [ ] Replace the publication placeholders in `src/pages/publications.astro`.
 - [ ] Set a repository secret named `SITE_PASSWORD` (or change the `aalhejab` fallback).
 - [ ] Merge the `aalhejab-astro` branch into `main` in `ms802x/ms802x.github.io`.

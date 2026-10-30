@@ -5,9 +5,7 @@ import { SITE } from '../consts';
 
 const profileLinks = [
   { label: 'GitHub', handle: SITE.github, href: SITE.github, icon: 'github' },
-  { label: 'LinkedIn', handle: SITE.linkedin, href: SITE.linkedin, icon: 'linkedin' },
   { label: 'X', handle: SITE.x, href: SITE.x, icon: 'x' },
-  { label: 'Hugging Face', handle: SITE.huggingface, href: SITE.huggingface, icon: 'huggingface' },
   { label: 'Google Scholar', handle: 'scholar.google.com', href: SITE.scholar, icon: 'scholar' },
 ].map((profile) => ({
   ...profile,
@@ -36,17 +34,16 @@ const profileLinks = [
     <div>
       <h2 class="contact-heading">A good conversation starts with a concrete question.</h2>
       <p class="contact-copy">
-        I'm interested in inference optimization, diffusion models, distillation, LLM serving, and
-        Arabic ASR/NLP. If you're working on one of those problems — or you spotted something wrong
-        in a post — I'd like to hear about it.
+        I lead AI engineering at HUMAIN, working on agentic AI, real-time avatars, generative image
+        and video, and efficient inference. If you're working on a related problem — or you spotted
+        something wrong in a post — I'd like to hear about it.
       </p>
       <a class="contact-email" href={`mailto:${SITE.email}`}>
         <Icon name="mail" size={20} />
         {SITE.email}
       </a>
       <p class="contact-note">
-        Based in {SITE.location}. Replace the email and social placeholders in
-        <code>src/consts.ts</code> before publishing this site.
+        Based in {SITE.location}. Email is the fastest way to reach me.
       </p>
     </div>
 

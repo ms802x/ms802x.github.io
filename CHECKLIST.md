@@ -1,6 +1,6 @@
 # Manual launch checklist
 
-- [ ] Replace the remaining LinkedIn, Hugging Face, and Google Scholar placeholders in `src/consts.ts`.
+- [ ] The profile links in `src/consts.ts` are up to date.
 - [ ] Replace the IEEE and Springer placeholders in `src/pages/publications.astro`.
 - [ ] Set a GitHub Actions secret named `SITE_PASSWORD` with a real password.
 - [ ] Review the sample draft posts in `src/content/blog/` and remove or replace them.

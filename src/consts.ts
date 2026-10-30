@@ -1,25 +1,23 @@
 export const SITE = {
-  title: 'Aalhejab — AI Engineer',
+  title: 'Aalhejab — Lead AI Engineer',
   shortTitle: 'Aalhejab',
   brand: 'aalhejab',
   description:
-    'The personal profile of Ali at Aalhejab — an AI engineer working on generative imaging, diffusion models, inference optimization, knowledge distillation, and Arabic ASR/NLP.',
+    'Ali Alhejab is a Lead AI Engineer at HUMAIN, building agentic AI, real-time avatars, generative image and video systems, and efficient inference infrastructure.',
   author: 'Ali Alhejab',
-  role: 'AI Engineer',
-  location: 'Saudi Arabia',
+  role: 'Lead AI Engineer',
+  location: 'Riyadh, Saudi Arabia',
   // Fallback used when Astro.site is unavailable. The deploy workflow sets SITE_URL.
   fallbackUrl: 'https://ms802x.github.io',
-  // LinkedIn, Hugging Face, and Google Scholar are still placeholders.
   email: 'alhejab.ee@gmail.com',
   github: 'https://github.com/ms802x',
-  linkedin: 'https://www.linkedin.com/in/yourusername',
   x: 'https://x.com/ms802x',
-  huggingface: 'https://huggingface.co/yourusername',
-  scholar: 'https://scholar.google.com/citations?user=YOUR_SCHOLAR_ID',
+  scholar: 'https://scholar.google.com/scholar?q=%22Ali%20Alhejab%22',
 } as const;
 
 export const NAV = [
   { href: '/blog/', label: 'Writing' },
+  { href: '/cv/', label: 'CV' },
   { href: '/about/', label: 'About' },
   { href: '/publications/', label: 'Publications' },
   { href: '/contact/', label: 'Contact' },
@@ -27,31 +25,29 @@ export const NAV = [
 
 export const SOCIALS = [
   { href: SITE.github, label: 'GitHub', icon: 'github' },
-  { href: SITE.linkedin, label: 'LinkedIn', icon: 'linkedin' },
   { href: SITE.x, label: 'X', icon: 'x' },
-  { href: SITE.huggingface, label: 'Hugging Face', icon: 'huggingface' },
   { href: SITE.scholar, label: 'Google Scholar', icon: 'scholar' },
 ] as const;
 
 export const FOCUS_AREAS = [
   {
-    title: 'Generative imaging',
+    title: 'Agentic AI & avatars',
     description:
-      'Diffusion sampling, scheduling, and the engineering details that make image models usable outside a research notebook.',
+      'Real-time conversational agents with integrated STT, LLM, and TTS pipelines — built for presenters, meeting facilitators, and live interaction.',
   },
   {
-    title: 'Inference optimization',
+    title: 'Generative image & video',
     description:
-      'Latency and throughput trade-offs: batching, quantization, caching, and knowing which benchmark number actually matters.',
+      'Diffusion models for custom avatar generation, from LoRA fine-tuning on Flux, Hunyuan, and Wan to inference on CPU and GPU.',
   },
   {
-    title: 'Knowledge distillation',
+    title: 'Efficient inference',
     description:
-      'Turning large models into smaller, faster students — and being honest about the cases where distillation does not pay off.',
+      'TensorRT, vLLM, TeaCache, and multi-GPU training with DeepSpeed and Accelerate — optimizing the path from model to production.',
   },
   {
-    title: 'Arabic ASR & NLP',
+    title: 'Perception & language',
     description:
-      'Benchmarking and fine-tuning speech and language models on real-world Arabic audio and text, dialects included.',
+      'Object detection, sign-language translation, intent routing, and vision-language systems applied to real-world problems.',
   },
 ] as const;

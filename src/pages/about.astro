@@ -6,17 +6,17 @@ import { SITE } from '../consts';
 
 <BaseLayout
   title="About"
-  description="Ali Alhejab is an AI engineer based in Saudi Arabia, working on generative imaging, diffusion models, inference optimization, knowledge distillation, and Arabic ASR/NLP."
+  description="Ali Alhejab is a Lead AI Engineer at HUMAIN in Riyadh, building agentic AI, real-time avatars, and generative image and video systems."
 >
   <header class="page-header">
     <div class="shell page-header-grid">
       <div>
         <p class="page-kicker eyebrow">About</p>
-        <h1 class="page-title">AI engineer, focused on the gap between research and production.</h1>
+        <h1 class="page-title">AI engineer, from research to production systems.</h1>
       </div>
       <p class="page-lede">
-        Four years of hands-on ML, NLP, and LLM engineering. A bias toward measurement, clear
-        baselines, and systems that can be explained.
+        I lead AI engineering work at HUMAIN, building real-time avatar agents, generative media
+        systems, and the infrastructure that makes them usable.
       </p>
     </div>
   </header>
@@ -25,50 +25,59 @@ import { SITE } from '../consts';
     <div class="shell about-grid">
       <div>
         <p class="about-intro">
-          I'm <strong>Ali Alhejab</strong>, an AI engineer based in {SITE.location}. I work on generative
-          imaging, diffusion models, inference optimization, knowledge distillation, and Arabic
-          ASR/NLP.
+          I'm <strong>Ali Alhejab</strong>, a Lead AI Engineer at HUMAIN in {SITE.location}. I work
+          across agentic AI, LLMs, image and video generation, deep learning, and computer vision.
         </p>
 
         <div class="about-copy">
           <p>
-            My day-to-day work is about making models faster, smaller, or more useful without losing
-            sight of the metric that matters. That often means building a reliable baseline first,
-            then measuring where latency, cost, or quality actually goes. I've deployed models on
-            NVIDIA H100 and B300 (Blackwell Ultra) hardware, which has made those trade-offs very
-            concrete.
+            At HUMAIN, I built an in-house avatar platform that reduced costs by 92% versus
+            third-party solutions. I develop real-time AI avatar agents for virtual presenting and
+            meeting facilitation, with conversational pipelines that connect STT, LLM, and TTS. I
+            also pretrain and fine-tune video diffusion models for custom avatars and optimize
+            inference for CPU and GPU deployments.
           </p>
 
           <h2>Background</h2>
           <p>
-            I completed my MSc at King Abdullah University of Science and Technology (KAUST) and
-            hold an NVIDIA certification. My research has been published with IEEE and Springer. I
-            still think of publishing as an engineering exercise: define the claim, control the
-            comparison, and report the result honestly.
+            Before HUMAIN, I was an AI Engineer at SDAIA, working across computer vision, NLP, and
+            generative modeling. That included DETR and YOLO detection for construction-site
+            surveillance, a sign-language-to-text system using T5 and AV-HuBERT, LoRA fine-tuning
+            for Flux, Hunyuan, and Wan 2.1, and multi-GPU training with Hugging Face Accelerate and
+            DeepSpeed. I also optimized vision and LLM inference with TensorRT, vLLM, and TeaCache.
           </p>
 
-          <h2>What I write about</h2>
           <p>
-            This site is where I keep longer notes on experiments, benchmarks, and engineering
-            decisions. The posts lean practical: what I tried, what the numbers looked like, and
-            what I would change next time. Some of it is about Arabic speech and language systems,
-            where real-world audio and dialect variation tend to break tidy assumptions.
+            My path into AI started in electrical engineering. I completed an MSc at KAUST in
+            Electrical and Computer Engineering, specializing in solar energy systems, where I
+            developed a single-voltage-sensor method for photovoltaic fault localization and worked
+            with NEOM on solar-glass testing. I also hold a BSc in Electrical Engineering from KFUPM,
+            with a specialization in IoT.
+          </p>
+
+          <h2>Research and writing</h2>
+          <p>
+            My work has been published with IEEE and Springer, spanning sign-language translation,
+            photovoltaic fault localization, energy-efficient aerial IoT systems, and
+            switched-capacitor converter design. I write here about the engineering side of AI:
+            benchmarks, inference trade-offs, training pipelines, and the details that decide whether
+            a system works outside a notebook.
           </p>
 
           <h2>How I work</h2>
           <p>
             I prefer small, testable steps over large unverified jumps. In practice that means
-            reproducible scripts, a clear evaluation set, and a healthy suspicion of a single
-            benchmark. If a technique cannot be measured, it is hard to defend.
+            reproducible experiments, clear baselines, and a healthy suspicion of a single benchmark.
+            If a technique cannot be measured, it is hard to defend.
           </p>
 
           <h2>Elsewhere</h2>
           <p>
             You can find me on <a class="text-link" href={SITE.github}>GitHub</a>,{' '}
-            <a class="text-link" href={SITE.linkedin}>LinkedIn</a>, and{' '}
-            <a class="text-link" href={SITE.huggingface}>Hugging Face</a>, or reach me by{' '}
-            <a class="text-link" href={`mailto:${SITE.email}`}>email</a>. I also keep my{' '}
-            <a class="text-link" href={SITE.scholar}>Google Scholar</a> profile up to date.
+            <a class="text-link" href={SITE.x}>X</a>, and{' '}
+            <a class="text-link" href={SITE.scholar}>Google Scholar</a>, or reach me by{' '}
+            <a class="text-link" href={`mailto:${SITE.email}`}>email</a>. The full CV is{' '}
+            <a class="text-link" href="/cv/">here</a>.
           </p>
         </div>
       </div>
@@ -78,27 +87,27 @@ import { SITE } from '../consts';
         <dl class="about-facts">
           <div class="about-fact">
             <dt>Role</dt>
-            <dd>{SITE.role}</dd>
+            <dd>Lead AI Engineer, HUMAIN</dd>
           </div>
           <div class="about-fact">
             <dt>Experience</dt>
-            <dd>~4 years hands-on ML / NLP / LLM</dd>
+            <dd>Industry and research · HUMAIN, SDAIA, KAUST, Saudi Aramco</dd>
           </div>
           <div class="about-fact">
             <dt>Education</dt>
-            <dd>MSc, KAUST</dd>
+            <dd>MSc, KAUST · BSc, KFUPM</dd>
           </div>
           <div class="about-fact">
             <dt>Certification</dt>
-            <dd>NVIDIA certified</dd>
+            <dd>NVIDIA Certified Associate — Generative AI</dd>
           </div>
           <div class="about-fact">
             <dt>Research</dt>
             <dd>IEEE and Springer publications</dd>
           </div>
           <div class="about-fact">
-            <dt>Hardware</dt>
-            <dd>NVIDIA H100 and B300 (Blackwell Ultra)</dd>
+            <dt>Focus</dt>
+            <dd>Agentic AI · LLMs · image & video generation · computer vision</dd>
           </div>
           <div class="about-fact">
             <dt>Location</dt>
@@ -106,7 +115,7 @@ import { SITE } from '../consts';
           </div>
         </dl>
         <div class="about-side-foot">
-          <a class="button button-ghost" href="/contact/">Get in touch <Icon name="arrow-right" size={15} /></a>
+          <a class="button button-ghost" href="/cv/">View CV <Icon name="arrow-right" size={15} /></a>
         </div>
       </aside>
     </div>

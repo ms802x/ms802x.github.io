@@ -1,0 +1,336 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import { SITE } from '../consts';
+
+const phone = '+966 50 573 0057';
+const phoneHref = 'tel:+966505730057';
+
+const experience = [
+  {
+    role: 'Lead AI Engineer',
+    company: 'HUMAIN',
+    location: 'Riyadh, Saudi Arabia',
+    dates: 'May 2025 – Present',
+    bullets: [
+      'Built an in-house avatar platform, achieving a 92% cost reduction versus third-party solutions.',
+      'Developed and deployed real-time AI avatar agents as interactive virtual presenters and meeting facilitators, with conversational pipelines integrating STT, LLM, and TTS.',
+      'Pretrained and fine-tuned video diffusion models for custom avatar generation, optimizing inference for both CPU and GPU.',
+      'Built an in-house intent-detection model achieving 99% accuracy to route user requests within the conversational pipeline.',
+    ],
+  },
+  {
+    role: 'AI Engineer',
+    company: 'SDAIA',
+    location: 'Saudi Arabia',
+    dates: 'Jun 2024 – May 2025',
+    intro:
+      'Research and development of AI models across computer vision, NLP, and generative modeling.',
+    bullets: [
+      'Trained DETR and YOLO object-detection models for construction-site surveillance (helmets, vehicles, license plates, and people).',
+      'Built a sign-language-to-text translation system using T5 and AV-HuBERT; contributed to the Sign4All Challenge.',
+      'Fine-tuned LoRA modules for diffusion models (Flux, Hunyuan, Wan 2.1) for image and video generation.',
+      'Fine-tuned LLaMA and T5 for token-by-token image generation/understanding and conversational abilities.',
+      'Optimized inference with TensorRT (vision) and vLLM (LLMs); proficient with TeaCache for generation workflows.',
+      'Built scalable multi-GPU / multi-node training pipelines using HuggingFace Accelerate and DeepSpeed.',
+    ],
+  },
+  {
+    role: 'Solar Energy Systems Researcher',
+    company: 'KAUST',
+    location: 'Saudi Arabia',
+    dates: 'Aug 2022 – May 2024',
+    intro: 'Developed techniques to localize and identify faults in PV systems.',
+    bullets: [
+      'Collaborated with the KAUST Solar Center to build a fast, cost-effective fault-localization algorithm for PV systems.',
+      'Partnered with NEOM to test new solar-glass technologies.',
+    ],
+  },
+  {
+    role: 'Technical Services Division Trainee',
+    company: 'Ithra, Saudi Aramco',
+    location: 'Saudi Arabia',
+    dates: 'Jun 2021 – Aug 2021',
+    bullets: [
+      'Member of the quality and maintenance inspection team during a summer internship.',
+    ],
+  },
+];
+
+const education = [
+  {
+    school: 'King Abdullah University of Science and Technology (KAUST)',
+    location: 'Thuwal, Saudi Arabia',
+    degree: 'M.Sc., Electrical and Computer Engineering',
+    detail: 'Specialization in Solar Energy Systems · GPA: 3.67/4.0',
+    dates: 'Jun 2024',
+    thesis:
+      'Thesis: “A Novel Fault Localization Technique for PV Systems Using a Single-Voltage Sensor.” Advisor: Prof. Shehab Ahmed.',
+  },
+  {
+    school: 'King Fahd University of Petroleum and Minerals (KFUPM)',
+    location: 'Dhahran, Saudi Arabia',
+    degree: 'B.Sc., Electrical Engineering',
+    detail: 'Specialization in Internet of Things · GPA: 3.75/4.0',
+    dates: 'May 2022',
+    thesis:
+      'Research: “Optimized Synthesis Algorithm for a Two-Phase Switched-Capacitor Converter.” Advisor: Dr. Yaqub Mahnashi.',
+  },
+];
+
+const publications = [
+  {
+    authors: 'A. Alhejab et al.',
+    year: '2026',
+    title: 'Saudi Sign Language Translation Using T5',
+    venue: 'Springer, Cham',
+    publisher: 'Springer',
+  },
+  {
+    authors: 'A. Alhejab, M. Abbasi, S. Ahmed',
+    year: '2025',
+    title: 'A Single-Voltage-Sensor Bypass-Switch-Based Photovoltaic Fault Localization',
+    venue: 'IEEE Journal of Photovoltaics',
+    publisher: 'IEEE',
+  },
+  {
+    authors: 'O. Khalifa, A. S. Mohammed, A. Alhejab, et al.',
+    year: '2024',
+    title: 'Energy-Efficient Aerial Data Aggregation for IoT: From Prototyping to Large-Scale Implementation',
+    venue: 'IEEE Transactions on Instrumentation and Measurement',
+    publisher: 'IEEE',
+  },
+  {
+    authors: 'A. S. Mohammed, O. Khalifa, A. Alhejab, et al.',
+    year: '2023',
+    title: 'Energy-Efficient Aerial Data Aggregation in IoT Networks with WuR',
+    venue: 'IEEE International Black Sea Conference on Communications and Networking',
+    publisher: 'IEEE',
+  },
+  {
+    authors: 'A. Alhejab, Y. Mahnashi',
+    year: '2024',
+    title: 'A New Synthesis Method for Efficient Reconfigurable Switched-Capacitor Converters',
+    venue: 'Authorea Preprints',
+    publisher: 'Authorea',
+  },
+];
+
+const certifications = [
+  {
+    title: 'NVIDIA Certified Associate — Generative AI (Multimodal) & Generative AI (LLM)',
+    detail: 'Riyadh, Saudi Arabia · Dec 2024',
+  },
+  {
+    title: 'Shentech Bootcamp',
+    detail: 'Shenzhen, China · Jan 2024 · Factory and company visits plus entrepreneurship coursework',
+  },
+  {
+    title: 'PV Design & Installation School',
+    detail: 'Thuwal, Saudi Arabia · Apr 2023 · 80-hour program on PV system design, installation, and commissioning',
+  },
+  {
+    title: 'Self-Driving Car Engineer Nanodegree',
+    detail: 'Online · Jun–Oct 2021 · Misk-sponsored, project-based program covering control systems, machine learning, and sensor fusion',
+  },
+];
+
+const skills = [
+  { label: 'Programming', value: 'Python, C/C++, MATLAB' },
+  {
+    label: 'Software & tools',
+    value: 'Hugging Face, LLaMA-Factory, PyTorch, Git, Jupyter, KiCad, LTspice, LaTeX',
+  },
+  { label: 'Relevant coursework', value: 'Deep Learning for Visual Computing, Mathematics for Machine Learning, Renewables, Microwave Circuits, Computer Networks, IoT, Energy Harvesting' },
+  { label: 'Teaching', value: 'Deep Learning and Reinforcement Learning' },
+  { label: 'Languages', value: 'Arabic (native), English (advanced)' },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Ali A. Alhejab',
+  jobTitle: 'Lead AI Engineer',
+  email: `mailto:${SITE.email}`,
+  url: 'https://ms802x.github.io/',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Riyadh',
+    addressCountry: 'SA',
+  },
+  worksFor: {
+    '@type': 'Organization',
+    name: 'HUMAIN',
+  },
+  alumniOf: [
+    { '@type': 'CollegeOrUniversity', name: 'King Abdullah University of Science and Technology' },
+    { '@type': 'CollegeOrUniversity', name: 'King Fahd University of Petroleum and Minerals' },
+  ],
+  sameAs: ['https://github.com/ms802x', 'https://x.com/ms802x'],
+  knowsAbout: [
+    'Agentic AI',
+    'Large language models',
+    'Image generation',
+    'Video generation',
+    'Diffusion models',
+    'Computer vision',
+    'Deep learning',
+    'Inference optimization',
+  ],
+};
+---
+
+<BaseLayout
+  title="CV"
+  description="Curriculum vitae of Ali A. Alhejab — Lead AI Engineer at HUMAIN, working on agentic AI, real-time avatars, and generative image and video systems."
+  jsonLd={jsonLd}
+>
+  <header class="page-header cv-page-header">
+    <div class="shell">
+      <p class="page-kicker eyebrow">Curriculum Vitae</p>
+      <div class="cv-title-row">
+        <div>
+          <h1 class="page-title">Ali A. Alhejab.</h1>
+          <p class="cv-role">Lead AI Engineer · HUMAIN · Riyadh</p>
+        </div>
+        <div class="cv-header-actions">
+          <a class="button button-primary" href="/cv/Ali-Alhejab-CV.pdf" download>
+            Download PDF <Icon name="arrow-up-right" size={16} />
+          </a>
+          <a class="button button-ghost" href={`mailto:${SITE.email}`}>Email</a>
+        </div>
+      </div>
+      <div class="cv-contact-line">
+        <span>{SITE.location}</span>
+        <a href={phoneHref}>{phone}</a>
+        <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+        <a href={SITE.github} target="_blank" rel="me noopener noreferrer">github.com/ms802x</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="cv-body">
+    <div class="shell cv-grid">
+      <main class="cv-main">
+        <section class="cv-section" aria-labelledby="profile-heading">
+          <h2 id="profile-heading">Profile</h2>
+          <p class="cv-summary">
+            Lead AI Engineer with hands-on experience across agentic AI, LLMs, generative image and
+            video, deep learning, and computer vision. I build production systems end to end — from
+            real-time conversational agents and custom avatar platforms to diffusion model training,
+            inference optimization, and multi-GPU pipelines.
+          </p>
+        </section>
+
+        <section class="cv-section" aria-labelledby="experience-heading">
+          <h2 id="experience-heading">Professional experience</h2>
+          <div class="cv-role-list">
+            {
+              experience.map((job) => (
+                <article class="cv-role">
+                  <div class="cv-role-head">
+                    <div>
+                      <h3>{job.role}</h3>
+                      <p class="cv-org">{job.company} · {job.location}</p>
+                    </div>
+                    <span class="cv-date">{job.dates}</span>
+                  </div>
+                  {job.intro && <p class="cv-role-intro">{job.intro}</p>}
+                  <ul class="cv-bullets">
+                    {job.bullets.map((bullet) => <li>{bullet}</li>)}
+                  </ul>
+                </article>
+              ))
+            }
+          </div>
+        </section>
+
+        <section class="cv-section" aria-labelledby="publications-heading">
+          <div class="cv-section-head">
+            <h2 id="publications-heading">Selected publications</h2>
+            <a class="section-link" href="/publications/">All publications</a>
+          </div>
+          <ol class="cv-publications">
+            {
+              publications.map((publication) => (
+                <li class="cv-publication">
+                  <div class="cv-publication-meta">
+                    <span>{publication.publisher}</span>
+                    <span>{publication.year}</span>
+                  </div>
+                  <h3>{publication.title}</h3>
+                  <p>{publication.authors}</p>
+                  <p class="cv-publication-venue">{publication.venue}</p>
+                </li>
+              ))
+            }
+          </ol>
+        </section>
+      </main>
+
+      <aside class="cv-aside">
+        <section class="cv-section" aria-labelledby="education-heading">
+          <h2 id="education-heading">Education</h2>
+          <div class="cv-education-list">
+            {
+              education.map((entry) => (
+                <article class="cv-education">
+                  <div class="cv-role-head">
+                    <h3>{entry.school}</h3>
+                    <span class="cv-date">{entry.dates}</span>
+                  </div>
+                  <p class="cv-org">{entry.location}</p>
+                  <p class="cv-degree">{entry.degree}</p>
+                  <p class="cv-detail">{entry.detail}</p>
+                  <p class="cv-detail">{entry.thesis}</p>
+                </article>
+              ))
+            }
+          </div>
+        </section>
+
+        <section class="cv-section" aria-labelledby="skills-heading">
+          <h2 id="skills-heading">Technical skills</h2>
+          <dl class="cv-skills">
+            {
+              skills.map((skill) => (
+                <div class="cv-skill">
+                  <dt>{skill.label}</dt>
+                  <dd>{skill.value}</dd>
+                </div>
+              ))
+            }
+          </dl>
+        </section>
+
+        <section class="cv-section" aria-labelledby="certifications-heading">
+          <h2 id="certifications-heading">Certifications</h2>
+          <ul class="cv-cert-list">
+            {
+              certifications.map((certificate) => (
+                <li>
+                  <h3>{certificate.title}</h3>
+                  <p>{certificate.detail}</p>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+
+        <section class="cv-section" aria-labelledby="awards-heading">
+          <h2 id="awards-heading">Honors & awards</h2>
+          <ul class="cv-award-list">
+            <li>
+              <strong>1st Place</strong> — Abu Dhabi University 11th Research Competition, 2023.
+              <span>Optimized Synthesis Algorithm for a Two-Phase Switched-Capacitor Converter.</span>
+            </li>
+            <li>
+              <strong>1st Place</strong> — KFUPM Senior Design Project EXPO, 2022.
+              <span>Low-Power IoT Data Aggregation System Using a UAV as Data Aggregator.</span>
+            </li>
+          </ul>
+        </section>
+      </aside>
+    </div>
+  </div>
+</BaseLayout>
