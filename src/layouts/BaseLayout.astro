@@ -135,7 +135,7 @@ const structuredData = jsonLd
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={imageURL} />
 
-    <meta name="theme-color" content="#0c0f10" />
+    <meta name="theme-color" content="#06090c" />
 
     {structuredData && <script type="application/ld+json" set:html={structuredData} />}
   </head>
@@ -160,7 +160,7 @@ const structuredData = jsonLd
         const isDark = root.dataset.theme === 'dark';
         button.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
         button.setAttribute('title', isDark ? 'Switch to light theme' : 'Switch to dark theme');
-        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', isDark ? '#0c0f10' : '#f7f6f2');
+        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', isDark ? '#06090c' : '#f7f6f2');
       }
 
       document.getElementById('theme-toggle')?.addEventListener('click', () => {

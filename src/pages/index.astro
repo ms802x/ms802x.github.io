@@ -1,138 +1,103 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PostCard from '../components/PostCard.astro';
+import CosmicField from '../components/CosmicField.astro';
 import Icon from '../components/Icon.astro';
-import NeuralMesh from '../components/NeuralMesh.astro';
-import { FOCUS_AREAS, SITE } from '../consts';
-import { getPosts } from '../lib/posts';
+import { SITE } from '../consts';
+import { formatDate, getPosts, postHref, readingTime } from '../lib/posts';
 
 const posts = await getPosts();
-const latest = posts.slice(0, 4);
+const latest = posts.slice(0, 3);
 ---
 
 <BaseLayout>
-  <section class="hero">
-    <NeuralMesh class="hero-neural" />
-    <div class="shell hero-grid">
-      <div class="hero-copy">
-        <p class="eyebrow">Lead AI Engineer · {SITE.location}</p>
-        <h1 class="hero-title">
-          I build AI systems that <span class="accent">hold up</span> in production.
+  <section class="home-hero">
+    <CosmicField class="home-cosmos" />
+    <div class="shell home-hero-inner">
+      <div class="home-hero-main">
+        <p class="home-eyebrow">
+          <span class="home-signal" aria-hidden="true"></span>
+          Ali Alhejab · Lead AI Engineer
+        </p>
+        <h1 class="home-title">
+          From latent space<br />
+          <span>to production.</span>
         </h1>
-        <p class="hero-lede">
-          I'm <strong>Ali Alhejab</strong>, a Lead AI Engineer at HUMAIN in Riyadh. I build real-time
-          avatar agents, generative image and video systems, and the inference infrastructure
-          around them. Previously at SDAIA, I worked across computer vision, NLP, and generative
-          modeling — with a focus on getting models out of the notebook and into production.
+        <p class="home-lede">
+          I build agentic AI, real-time avatars, and generative image and video systems at HUMAIN.
+          Research-minded. Production-obsessed.
         </p>
-        <div class="hero-actions">
-          <a class="button button-primary" href="/blog/">
-            Read the writing <Icon name="arrow-right" size={16} />
+        <div class="home-actions">
+          <a class="home-cta" href="/blog/">
+            Selected writing <Icon name="arrow-right" size={15} />
           </a>
-          <a class="button button-ghost" href="/cv/">View CV</a>
+          <a class="home-cta-secondary" href="/cv/">Curriculum vitae</a>
         </div>
-        <p class="hero-note">
-          <span class="dot" aria-hidden="true"></span>
-          HUMAIN · SDAIA · MSc, KAUST · NVIDIA certified
-        </p>
       </div>
 
-      <aside class="spec-card" aria-label="Profile at a glance">
-        <div class="spec-top">
-          <span class="spec-top-label">Profile</span>
-          <span class="spec-year">{new Date().getFullYear()}</span>
+      <div class="home-hero-foot">
+        <div class="home-coordinates">
+          <span>24.7136° N</span>
+          <span>46.6753° E</span>
+          <span>Riyadh, Saudi Arabia</span>
         </div>
-        <dl class="spec-list">
-          <div class="spec-item">
-            <dt>Role</dt>
-            <dd>Lead AI Engineer, HUMAIN</dd>
-          </div>
-          <div class="spec-item">
-            <dt>Focus</dt>
-            <dd>Agentic AI · LLMs · image & video generation</dd>
-          </div>
-          <div class="spec-item">
-            <dt>Education</dt>
-            <dd>MSc, King Abdullah University of Science and Technology</dd>
-          </div>
-          <div class="spec-item">
-            <dt>Based in</dt>
-            <dd>{SITE.location}</dd>
-          </div>
-        </dl>
-        <div class="spec-footer">
-          <span class="spec-chip">NVIDIA certified</span>
-          <span class="spec-chip">IEEE + Springer</span>
-        </div>
-      </aside>
-    </div>
-  </section>
-
-  <section class="facts" aria-label="Quick facts">
-    <div class="shell facts-grid">
-      <div class="fact">
-        <span class="fact-value">Lead AI Engineer</span>
-        <span class="fact-label">HUMAIN</span>
-      </div>
-      <div class="fact">
-        <span class="fact-value">MSc</span>
-        <span class="fact-label">KAUST</span>
-      </div>
-      <div class="fact">
-        <span class="fact-value">NVIDIA</span>
-        <span class="fact-label">Certified</span>
-      </div>
-      <div class="fact">
-        <span class="fact-value">IEEE + Springer</span>
-        <span class="fact-label">Published research</span>
+        <a class="home-scroll" href="#writing">
+          <span class="home-scroll-line" aria-hidden="true"></span>
+          Scroll to explore
+        </a>
       </div>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="latest-heading">
+  <section class="home-writing" id="writing" aria-labelledby="home-writing-heading">
     <div class="shell">
-      <div class="section-head">
-        <div class="section-head-copy">
-          <p class="section-label">Latest writing</p>
-          <h2 class="section-title" id="latest-heading">Notes from the build.</h2>
+      <div class="home-section-head">
+        <div>
+          <p class="section-label">Selected writing</p>
+          <h2 class="home-section-title" id="home-writing-heading">Notes from the work.</h2>
         </div>
-        <a class="section-link" href="/blog/">All posts <Icon name="arrow-right" size={14} /></a>
+        <a class="home-section-link" href="/blog/">All notes <Icon name="arrow-right" size={14} /></a>
       </div>
 
-      {
-        latest.length > 0 ? (
-          <div class="post-list">
-            {latest.map((post, index) => (
-              <PostCard post={post} index={index} />
-            ))}
-          </div>
-        ) : (
-          <p class="empty-state">No posts yet. Check back soon.</p>
-        )
-      }
-    </div>
-  </section>
-
-  <section class="section section-bordered" aria-labelledby="focus-heading">
-    <div class="shell">
-      <div class="section-head">
-        <div class="section-head-copy">
-          <p class="section-label">Focus</p>
-          <h2 class="section-title" id="focus-heading">Where the work happens.</h2>
-        </div>
-        <a class="section-link" href="/about/">More about me <Icon name="arrow-right" size={14} /></a>
-      </div>
-
-      <div class="focus-grid">
+      <div class="home-post-list">
         {
-          FOCUS_AREAS.map((area, index) => (
-            <article class="focus-card">
-              <span class="focus-number">{String(index + 1).padStart(2, '0')}</span>
-              <h3>{area.title}</h3>
-              <p>{area.description}</p>
-            </article>
+          latest.map((post, index) => (
+            <a class="home-post" href={postHref(post)}>
+              <span class="home-post-index">0{index + 1}</span>
+              <span class="home-post-copy">
+                <span class="home-post-meta">
+                  {formatDate(post.data.date, post.data.lang)} · {readingTime(post.body, post.data.lang)} min read
+                  {post.data.draft && <span class="draft-badge">Draft</span>}
+                </span>
+                <span class="home-post-title" lang={post.data.lang} dir={post.data.lang === 'ar' ? 'rtl' : 'ltr'}>
+                  {post.data.title}
+                </span>
+              </span>
+              <span class="home-post-arrow" aria-hidden="true">↗</span>
+            </a>
           ))
         }
+      </div>
+    </div>
+  </section>
+
+  <section class="home-profile" aria-labelledby="home-profile-heading">
+    <div class="shell home-profile-grid">
+      <div class="home-profile-heading">
+        <p class="section-label">Profile</p>
+        <h2 id="home-profile-heading">Where generative models meet production constraints.</h2>
+      </div>
+      <div class="home-profile-copy">
+        <p>
+          I'm Ali Alhejab, a Lead AI Engineer at HUMAIN. I built an in-house avatar platform that cut
+          costs by 92% versus third-party solutions, and I work across real-time agents, video
+          diffusion, and efficient inference. Before HUMAIN, I built AI systems at SDAIA and researched
+          photovoltaic systems at KAUST.
+        </p>
+        <div class="home-profile-links">
+          <a class="text-link" href="/about/">About</a>
+          <a class="text-link" href="/cv/">CV</a>
+          <a class="text-link" href={`mailto:${SITE.email}`}>Email</a>
+        </div>
       </div>
     </div>
   </section>
