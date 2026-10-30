@@ -10,7 +10,7 @@ import rehypeImageCaptions from './src/lib/rehype-image-captions.mjs';
 // For a <username>.github.io repository, set this to https://<username>.github.io.
 // The deploy workflow overrides it with SITE_URL based on the repository owner.
 const env = loadEnv(process.env.NODE_ENV ?? 'production', process.cwd(), '');
-const site = process.env.SITE_URL ?? env.SITE_URL ?? 'https://alhejab.me';
+const site = process.env.SITE_URL ?? env.SITE_URL ?? 'https://ms802x.github.io';
 
 export default defineConfig({
   site,
