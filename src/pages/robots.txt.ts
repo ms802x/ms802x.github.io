@@ -12,7 +12,7 @@ export function GET({ site }: APIContext) {
     });
   }
 
-  const base = (site ?? new URL('https://alhejab.me')).href.replace(/\/$/, '');
+  const base = (site ?? new URL('https://ms802x.github.io')).href.replace(/\/$/, '');
   const body = `User-agent: *
 Allow: /
 

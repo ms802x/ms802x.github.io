@@ -8,7 +8,7 @@ export const SITE = {
   role: 'AI Engineer',
   location: 'Saudi Arabia',
   // Fallback used when Astro.site is unavailable. The deploy workflow sets SITE_URL.
-  fallbackUrl: 'https://alhejab.me',
+  fallbackUrl: 'https://ms802x.github.io',
   // LinkedIn, Hugging Face, and Google Scholar are still placeholders.
   email: 'alhejab.ee@gmail.com',
   github: 'https://github.com/ms802x',

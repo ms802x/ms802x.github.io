@@ -147,37 +147,28 @@ Search for `yourusername` and the Google Scholar placeholder to catch remaining 
 The workflow in `.github/workflows/deploy.yml` builds on every push to `main` and
 deploys the `dist/` output with GitHub Pages.
 
-The existing repository is `ms802x/ms802x.github.io` with the custom domain
-`alhejab.me`. The domain is preserved by `public/CNAME` and the Pages settings.
+The repository is `ms802x/ms802x.github.io` and the working site URL is
+`https://ms802x.github.io/`.
 
-1. Push or merge this branch to `main` when you are ready to publish.
-2. In **Settings → Pages**, set **Source** to **GitHub Actions** if it is not
-   already selected.
+1. Push or merge changes to `main`.
+2. Confirm **Settings → Pages → Source** is **GitHub Actions**.
 3. Add a repository secret named `SITE_PASSWORD` with your real password
    (**Settings → Secrets and variables → Actions → Secrets**). If omitted, the
    build falls back to `aalhejab`.
-4. The workflow runs automatically. The site will be at `https://alhejab.me/`.
+4. The workflow runs automatically.
 
-To push the branch from a fresh clone:
-
-```bash
-git remote add origin git@github.com:ms802x/ms802x.github.io.git
-git push -u origin aalhejab-astro
-```
-
-The workflow sets `SITE_URL` to `https://alhejab.me` by default. Override it with a
-repository variable named `SITE_URL` only if the public domain changes.
+The workflow sets `SITE_URL` to `https://ms802x.github.io` by default. Override it
+with a repository variable named `SITE_URL` if the public domain changes.
 
 ### Custom domain
 
-The site already includes `public/CNAME` with `alhejab.me`. Keep the custom domain
-configured in **Settings → Pages → Custom domain** and leave **Enforce HTTPS**
-enabled.
+The previous `alhejab.me` domain is currently **not registered/resolving**, so the
+site uses the GitHub Pages URL. To restore a custom domain later:
 
-DNS should point `alhejab.me` to GitHub Pages (`A` records for the apex and/or a
-`CNAME` for `www`), as it already does for the current Jekyll site. If the domain
-ever changes, update `public/CNAME`, the `SITE_URL` workflow default, and the
-Pages custom-domain setting together.
+1. Register or fix DNS for the domain and point it at GitHub Pages.
+2. Add `public/CNAME` containing only the domain (for example `alhejab.me`).
+3. Set the `SITE_URL` repository variable to the full URL.
+4. Set the custom domain in **Settings → Pages** and enable **Enforce HTTPS**.
 
 ## Performance and quality
 
@@ -228,7 +219,7 @@ their license texts are included in the same directory.
 - [ ] Set a repository secret named `SITE_PASSWORD` (or change the `aalhejab` fallback).
 - [ ] Merge the `aalhejab-astro` branch into `main` in `ms802x/ms802x.github.io`.
 - [ ] Enable **Settings → Pages → Source: GitHub Actions**.
-- [ ] Confirm the `alhejab.me` custom domain and HTTPS stay enabled.
+- [ ] Confirm the `ms802x.github.io` custom domain and HTTPS stay enabled.
 - [ ] Replace or delete the sample draft posts and set `PUBLIC_INCLUDE_DRAFTS` to `"false"`.
 - [ ] Update `public/og-default.png` if you want a custom social card.
 - [ ] Run `npm run build`, `npm run check`, and Lighthouse before launch.
