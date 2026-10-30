@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import { SITE } from '../consts';
+
+const profileLinks = [
+  { label: 'GitHub', handle: SITE.github, href: SITE.github, icon: 'github' },
+  { label: 'LinkedIn', handle: SITE.linkedin, href: SITE.linkedin, icon: 'linkedin' },
+  { label: 'X', handle: SITE.x, href: SITE.x, icon: 'x' },
+  { label: 'Hugging Face', handle: SITE.huggingface, href: SITE.huggingface, icon: 'huggingface' },
+  { label: 'Google Scholar', handle: 'scholar.google.com', href: SITE.scholar, icon: 'scholar' },
+].map((profile) => ({
+  ...profile,
+  handle: profile.handle.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''),
+}));
+---
+
+<BaseLayout
+  title="Contact"
+  description="Get in touch with Ali Alhejab about AI engineering, generative imaging, inference optimization, Arabic NLP, or research."
+>
+  <header class="page-header">
+    <div class="shell page-header-grid">
+      <div>
+        <p class="page-kicker eyebrow">Contact</p>
+        <h1 class="page-title">Let's compare notes.</h1>
+      </div>
+      <p class="page-lede">
+        For technical conversations, collaborations, or anything related to the work on this site.
+        Email is the most reliable way to reach me.
+      </p>
+    </div>
+  </header>
+
+  <div class="shell contact-grid">
+    <div>
+      <h2 class="contact-heading">A good conversation starts with a concrete question.</h2>
+      <p class="contact-copy">
+        I'm interested in inference optimization, diffusion models, distillation, LLM serving, and
+        Arabic ASR/NLP. If you're working on one of those problems — or you spotted something wrong
+        in a post — I'd like to hear about it.
+      </p>
+      <a class="contact-email" href={`mailto:${SITE.email}`}>
+        <Icon name="mail" size={20} />
+        {SITE.email}
+      </a>
+      <p class="contact-note">
+        Based in {SITE.location}. Replace the email and social placeholders in
+        <code>src/consts.ts</code> before publishing this site.
+      </p>
+    </div>
+
+    <div>
+      <p class="footer-label">Profiles</p>
+      <div class="contact-links">
+        {
+          profileLinks.map((link) => (
+            <a
+              class="contact-link"
+              href={link.href}
+              target="_blank"
+              rel="me noopener noreferrer"
+            >
+              <span class="contact-link-label">
+                {link.label}
+                <Icon name="arrow-up-right" size={14} />
+              </span>
+              <span class="contact-link-handle">{link.handle}</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</BaseLayout>

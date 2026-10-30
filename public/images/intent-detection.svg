@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Arabic intent detection illustration</title>
+  <desc id="desc">Arabic utterances mapped to intent clusters, with a dialect holdout split.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#101013"/>
+      <stop offset="1" stop-color="#171313"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#fb7185" stop-opacity=".18"/>
+      <stop offset="1" stop-color="#fb7185" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <circle cx="815" cy="320" r="310" fill="url(#glow)"/>
+  <g opacity=".2" stroke="#fb7185">
+    <path d="M0 140h1200M0 280h1200M0 420h1200M0 560h1200"/>
+  </g>
+  <text x="70" y="76" fill="#fb7185" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="15" letter-spacing="4">04 / INTENT</text>
+  <text x="1130" y="76" fill="#807172" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" text-anchor="end">ARABIC NLU</text>
+
+  <g transform="translate(70 148)">
+    <text x="0" y="0" fill="#9a8d8e" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" letter-spacing="2">UTTERANCE</text>
+    <g>
+      <rect x="0" y="28" width="420" height="52" rx="9" fill="#1a1617" stroke="#3a2c2e"/>
+      <text x="18" y="61" fill="#f4e9e9" font-family="'Noto Sans Arabic', 'Geeza Pro', sans-serif" font-size="20" direction="rtl">أريد تعديل موعد الرحلة</text>
+      <rect x="0" y="94" width="420" height="52" rx="9" fill="#1a1617" stroke="#3a2c2e"/>
+      <text x="18" y="127" fill="#f4e9e9" font-family="'Noto Sans Arabic', 'Geeza Pro', sans-serif" font-size="20" direction="rtl">أبغى أغير الحجز</text>
+      <rect x="0" y="160" width="420" height="52" rx="9" fill="#1a1617" stroke="#3a2c2e"/>
+      <text x="18" y="193" fill="#f4e9e9" font-family="'Noto Sans Arabic', 'Geeza Pro', sans-serif" font-size="20" direction="rtl">ما هو موعد الرحلة الجديد؟</text>
+    </g>
+    <g fill="#fb7185" opacity=".85">
+      <circle cx="446" cy="54" r="3"/><circle cx="466" cy="54" r="3"/><circle cx="486" cy="54" r="3"/>
+      <circle cx="446" cy="120" r="3"/><circle cx="466" cy="120" r="3"/><circle cx="486" cy="120" r="3"/>
+      <circle cx="446" cy="186" r="3"/><circle cx="466" cy="186" r="3"/><circle cx="486" cy="186" r="3"/>
+    </g>
+    <g stroke="#6b454b" stroke-dasharray="3 5">
+      <path d="M512 54h74M512 120h74M512 186h74"/>
+    </g>
+  </g>
+
+  <g transform="translate(650 158)">
+    <rect x="0" y="0" width="480" height="216" rx="16" fill="#141011" stroke="#3a2c2e"/>
+    <text x="22" y="34" fill="#9a8d8e" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" letter-spacing="2">INTENT CLUSTERS</text>
+    <g>
+      <rect x="22" y="56" width="188" height="58" rx="10" fill="#2b171c" stroke="#fb7185"/>
+      <text x="40" y="83" fill="#ffb4c0" font-family="ui-sans-serif, sans-serif" font-size="14" font-weight="600">Modify booking</text>
+      <text x="40" y="102" fill="#9a7e83" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10">12.4k examples</text>
+      <rect x="234" y="56" width="220" height="58" rx="10" fill="#1d1b1c" stroke="#383234"/>
+      <text x="252" y="83" fill="#d8cbcc" font-family="ui-sans-serif, sans-serif" font-size="14" font-weight="600">Change date</text>
+      <text x="252" y="102" fill="#7f7374" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10">4.1k examples</text>
+      <rect x="22" y="128" width="220" height="58" rx="10" fill="#1d1b1c" stroke="#383234"/>
+      <text x="40" y="155" fill="#d8cbcc" font-family="ui-sans-serif, sans-serif" font-size="14" font-weight="600">Cancel trip</text>
+      <text x="40" y="174" fill="#7f7374" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10">2.8k examples</text>
+      <rect x="266" y="128" width="188" height="58" rx="10" fill="#1d1b1c" stroke="#383234"/>
+      <text x="284" y="155" fill="#d8cbcc" font-family="ui-sans-serif, sans-serif" font-size="14" font-weight="600">Ask a question</text>
+      <text x="284" y="174" fill="#7f7374" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10">6.7k examples</text>
+    </g>
+  </g>
+
+  <g transform="translate(650 416)">
+    <rect x="0" y="0" width="480" height="66" rx="12" fill="#111b1a" stroke="#2f5752"/>
+    <text x="18" y="25" fill="#6f9992" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10" letter-spacing="2">HOLDOUT / DIALECT SPLIT</text>
+    <text x="18" y="49" fill="#5eead4" font-family="ui-sans-serif, sans-serif" font-size="17" font-weight="600">Gulf · Egyptian · Levantine</text>
+    <text x="462" y="40" fill="#6f9992" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10" text-anchor="end">p95</text>
+  </g>
+
+  <text x="70" y="548" fill="#f8eff0" font-family="'Instrument Sans', ui-sans-serif, sans-serif" font-size="39" font-weight="600" letter-spacing="-1.3">Split by speaker, not by row.</text>
+  <text x="70" y="590" fill="#ad9699" font-family="'Instrument Sans', ui-sans-serif, sans-serif" font-size="20">Near-duplicate utterances make random splits look better than they are.</text>
+  <text x="70" y="638" fill="#6f5d60" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" letter-spacing="2">SAMPLE VISUAL / ILLUSTRATIVE</text>
+</svg>

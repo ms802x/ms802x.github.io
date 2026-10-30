@@ -1,0 +1,112 @@
+---
+import { SITE } from '../consts';
+
+interface Props {
+  hash: string;
+  sessionKey: string;
+}
+
+const { hash, sessionKey } = Astro.props;
+---
+
+<div id="site-gate" class="site-gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
+  <div class="gate-panel">
+    <div class="brand gate-brand">
+      <span class="brand-mark" aria-hidden="true">A<span>.</span></span>
+      <span class="brand-text">
+        <span class="brand-name">{SITE.brand}</span>
+        <span class="brand-role">{SITE.role}</span>
+      </span>
+    </div>
+
+    <p class="gate-kicker">Private preview</p>
+    <h1 class="gate-title" id="gate-title">This profile is protected.</h1>
+    <p class="gate-copy">
+      Enter the password to view the profile, writing, and publications.
+    </p>
+
+    <form class="gate-form" id="gate-form" novalidate>
+      <label class="gate-label" for="gate-password">Password</label>
+      <div class="gate-input-row">
+        <input
+          class="gate-input"
+          id="gate-password"
+          name="password"
+          type="password"
+          autocomplete="current-password"
+          required
+          autofocus
+          aria-describedby="gate-hint gate-error"
+        />
+        <button class="gate-button" type="submit">
+          Enter <span aria-hidden="true">→</span>
+        </button>
+      </div>
+      <p class="gate-hint" id="gate-hint">Access is remembered for this browser session.</p>
+      <p class="gate-error" id="gate-error" role="alert" hidden>
+        That password is not correct. Try again.
+      </p>
+    </form>
+
+    <noscript>
+      <p class="gate-error">JavaScript is required to unlock this page.</p>
+    </noscript>
+
+    <p class="gate-footer">
+      Generative imaging · Inference · Arabic NLP
+    </p>
+  </div>
+</div>
+
+<script is:inline define:vars={{ gateHash: hash, gateKey: sessionKey }}>
+  (() => {
+    const form = document.getElementById('gate-form');
+    const input = document.getElementById('gate-password');
+    const error = document.getElementById('gate-error');
+    const button = form?.querySelector('button[type="submit"]');
+
+    if (!form || !input || !error || !button) return;
+
+    async function digest(value) {
+      const data = new TextEncoder().encode(value);
+      const buffer = await crypto.subtle.digest('SHA-256', data);
+      return Array.from(new Uint8Array(buffer))
+        .map((byte) => byte.toString(16).padStart(2, '0'))
+        .join('');
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      error.hidden = true;
+      const value = input.value;
+
+      if (!value) {
+        error.textContent = 'Enter the password to continue.';
+        error.hidden = false;
+        input.focus();
+        return;
+      }
+
+      button.disabled = true;
+
+      try {
+        const candidate = await digest(value);
+        if (candidate === gateHash) {
+          sessionStorage.setItem(gateKey, gateHash);
+          document.documentElement.classList.remove('locked');
+          input.value = '';
+          document.getElementById('main')?.focus();
+        } else {
+          error.textContent = 'That password is not correct. Try again.';
+          error.hidden = false;
+          input.select();
+        }
+      } catch {
+        error.textContent = 'The browser could not verify the password. Try again.';
+        error.hidden = false;
+      } finally {
+        button.disabled = false;
+      }
+    });
+  })();
+</script>

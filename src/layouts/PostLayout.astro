@@ -1,0 +1,162 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+import type { MarkdownHeading } from 'astro';
+import 'katex/dist/katex.min.css';
+import { SITE } from '../consts';
+import type { BlogPost } from '../lib/posts';
+import { formatDate, formatDateISO, postHref, readingTime, tagSlug } from '../lib/posts';
+
+interface Props {
+  post: BlogPost;
+  headings: MarkdownHeading[];
+  related?: BlogPost[];
+}
+
+const { post, headings, related = [] } = Astro.props;
+const lang = post.data.lang;
+const dir = lang === 'ar' ? 'rtl' : 'ltr';
+const minutes = readingTime(post.body, lang);
+const siteURL = (Astro.site ?? new URL(SITE.fallbackUrl)).href.replace(/\/$/, '');
+const canonicalHost = post.data.canonical_url ? new URL(post.data.canonical_url).hostname : null;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.summary,
+  datePublished: formatDateISO(post.data.date),
+  dateModified: formatDateISO(post.data.date),
+  inLanguage: lang,
+  keywords: post.data.tags.join(', '),
+  author: {
+    '@type': 'Person',
+    name: SITE.author,
+    jobTitle: SITE.role,
+    url: siteURL,
+  },
+  publisher: {
+    '@type': 'Person',
+    name: SITE.author,
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': `${siteURL}${postHref(post)}`,
+  },
+  image: new URL('/og-default.png', `${siteURL}/`).href,
+  isAccessibleForFree: true,
+};
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.summary}
+  type="article"
+  lang={lang}
+  canonical={post.data.canonical_url}
+  publishedTime={post.data.date}
+  modifiedTime={post.data.date}
+  jsonLd={jsonLd}
+>
+  <article class="post" lang={lang}>
+    <header class="post-header">
+      <div class="shell post-header-inner">
+        <a class="back-link" href="/blog/">← All writing</a>
+
+        <div class="post-kicker">
+          <span>Field notes</span>
+          <span class="post-kicker-sep" aria-hidden="true">/</span>
+          <span>{formatDate(post.data.date, lang)}</span>
+          {post.data.draft && (
+            <>
+              <span class="post-kicker-sep" aria-hidden="true">/</span>
+              <span class="draft-badge">Draft</span>
+            </>
+          )}
+        </div>
+
+        <h1 class="post-title" dir={dir}>{post.data.title}</h1>
+        <p class="post-deck" dir={dir}>{post.data.summary}</p>
+
+        <div class="post-byline">
+          <span class="byline-author">{SITE.author}</span>
+          <span aria-hidden="true">·</span>
+          <span>{minutes} min read</span>
+          {lang === 'ar' && <span class="lang-badge">العربية</span>}
+          <ul class="tag-list" aria-label="Tags">
+            {
+              post.data.tags.map((tag) => (
+                <li>
+                  <a class="tag" href={`/tags/${tagSlug(tag)}/`}>{tag}</a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <div class="shell post-body-shell">
+      <div class="post-grid">
+        <div class="post-main">
+          <div class="prose" dir={dir}>
+            <slot />
+          </div>
+
+          {post.data.canonical_url && (
+            <p class="post-canonical">
+              This article is also published at{' '}
+              <a href={post.data.canonical_url}>{canonicalHost}</a>. The canonical URL points there.
+            </p>
+          )}
+
+          <footer class="post-footer">
+            <p class="post-footer-label">Filed under</p>
+            <ul class="tag-list">
+              {
+                post.data.tags.map((tag) => (
+                  <li>
+                    <a class="tag" href={`/tags/${tagSlug(tag)}/`}>
+                      {tag}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </footer>
+        </div>
+
+        <aside class="post-side">
+          <TableOfContents headings={headings} />
+        </aside>
+      </div>
+
+      {
+        related.length > 0 && (
+          <section class="related-posts" aria-labelledby="related-heading">
+            <div class="section-head">
+              <div class="section-head-copy">
+                <p class="section-label">Keep reading</p>
+                <h2 class="section-title" id="related-heading">Related notes</h2>
+              </div>
+            </div>
+            <div class="related-grid">
+              {related.map((item) => (
+                <a class="related-card" href={postHref(item)}>
+                  <div class="post-meta">
+                    <time datetime={item.data.date.toISOString()}>{formatDate(item.data.date, item.data.lang)}</time>
+                    <span aria-hidden="true">·</span>
+                    <span>{readingTime(item.body, item.data.lang)} min read</span>
+                  </div>
+                  <h3 lang={item.data.lang} dir={item.data.lang === 'ar' ? 'rtl' : 'ltr'}>
+                    {item.data.title}
+                  </h3>
+                </a>
+              ))}
+            </div>
+          </section>
+        )
+      }
+    </div>
+  </article>
+</BaseLayout>

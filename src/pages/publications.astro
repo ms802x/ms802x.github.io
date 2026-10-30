@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import { SITE } from '../consts';
+
+const publications = [
+  {
+    publisher: 'IEEE',
+    title: 'Add your IEEE publication title',
+    authors: 'Ali Alhejab et al.',
+    venue: 'Journal or conference name (placeholder)',
+    year: '20XX',
+    note: 'Add DOI, PDF, or citation link.',
+  },
+  {
+    publisher: 'Springer',
+    title: 'Add your Springer publication title',
+    authors: 'Ali Alhejab et al.',
+    venue: 'Journal or conference name (placeholder)',
+    year: '20XX',
+    note: 'Add DOI, PDF, or citation link.',
+  },
+];
+---
+
+<BaseLayout
+  title="Publications"
+  description="Peer-reviewed AI research by Ali, published with IEEE and Springer."
+>
+  <header class="page-header">
+    <div class="shell page-header-grid">
+      <div>
+        <p class="page-kicker eyebrow">Research</p>
+        <h1 class="page-title">Publications.</h1>
+      </div>
+      <p class="page-lede">
+        Peer-reviewed work in AI, published with IEEE and Springer. Replace the citation
+        placeholders below with the final titles, venues, and DOI links.
+      </p>
+    </div>
+  </header>
+
+  <div class="shell">
+    <div class="publications-list">
+      {
+        publications.map((publication) => (
+          <article class="publication-card">
+            <span class="publication-publisher">{publication.publisher}</span>
+            <div class="publication-main">
+              <h3>{publication.title}</h3>
+              <p>{publication.authors}</p>
+              <div class="publication-meta">
+                <span>{publication.venue}</span>
+                <span>{publication.year}</span>
+              </div>
+            </div>
+            <span class="publication-placeholder">Placeholder</span>
+          </article>
+        ))
+      }
+
+      <p class="publication-note">
+        This page intentionally uses placeholders instead of invented citations. Add the exact
+        publication details here, or point readers to your Google Scholar profile.
+      </p>
+
+      <div class="hero-actions">
+        <a class="button button-primary" href={SITE.scholar} target="_blank" rel="noopener noreferrer">
+          Google Scholar <Icon name="arrow-up-right" size={16} />
+        </a>
+        <a class="button button-ghost" href="/contact/">Contact</a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

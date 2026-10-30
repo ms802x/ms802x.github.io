@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import Icon from '../../components/Icon.astro';
+import { getPosts, getTags } from '../../lib/posts';
+
+const posts = await getPosts();
+const tags = getTags(posts);
+---
+
+<BaseLayout
+  title="Writing"
+  description="Essays and field notes on AI systems: inference optimization, diffusion models, knowledge distillation, LLM serving, and Arabic ASR/NLP."
+>
+  <header class="page-header">
+    <div class="shell page-header-grid">
+      <div>
+        <p class="page-kicker eyebrow">Writing</p>
+        <h1 class="page-title">Field notes on AI systems.</h1>
+      </div>
+      <p class="page-lede">
+        Practical notes from building, benchmarking, and serving models. Mostly the parts that
+        don't fit in a paper: what broke, what got faster, and what I would do differently.
+      </p>
+    </div>
+  </header>
+
+  <div class="shell">
+    <div class="blog-toolbar">
+      <p class="blog-count">
+        {posts.length} {posts.length === 1 ? 'post' : 'posts'} · newest first
+      </p>
+      <div class="tag-cloud" aria-label="Filter by tag">
+        <a class="tag active" href="/blog/">All</a>
+        {tags.map((tag) => (
+          <a class="tag" href={`/tags/${tag.slug}/`}>{tag.name}</a>
+        ))}
+        <a class="tag" href="/rss.xml"><Icon name="rss" size={11} /> RSS</a>
+      </div>
+    </div>
+
+    <div class="blog-list">
+      {
+        posts.length > 0 ? (
+          posts.map((post, index) => <PostCard post={post} index={index} headingLevel={2} />)
+        ) : (
+          <p class="empty-state">No posts yet. The first one is being written.</p>
+        )
+      }
+    </div>
+  </div>
+</BaseLayout>
