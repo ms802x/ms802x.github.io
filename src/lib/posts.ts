@@ -4,8 +4,7 @@ export type BlogPost = CollectionEntry<'blog'>;
 
 /**
  * Drafts are visible in local development. In a production build they are
- * hidden unless PUBLIC_INCLUDE_DRAFTS=true. The deploy workflow enables this
- * so the sample content is visible until you replace it.
+ * hidden unless PUBLIC_INCLUDE_DRAFTS=true.
  */
 export function draftsEnabled(): boolean {
   return import.meta.env.DEV || import.meta.env.PUBLIC_INCLUDE_DRAFTS === 'true';
@@ -76,21 +75,4 @@ export function getTags(posts: BlogPost[]): Array<{ name: string; slug: string; 
   return [...tags.values()].sort(
     (a, b) => b.count - a.count || a.name.localeCompare(b.name),
   );
-}
-
-export function getRelatedPosts(post: BlogPost, posts: BlogPost[], limit = 2): BlogPost[] {
-  const tags = new Set(post.data.tags);
-  return posts
-    .filter((candidate) => candidate.id !== post.id)
-    .map((candidate) => ({
-      candidate,
-      overlap: candidate.data.tags.filter((tag) => tags.has(tag)).length,
-    }))
-    .filter(({ overlap }) => overlap > 0)
-    .sort(
-      (a, b) =>
-        b.overlap - a.overlap || b.candidate.data.date.getTime() - a.candidate.data.date.getTime(),
-    )
-    .slice(0, limit)
-    .map(({ candidate }) => candidate);
 }

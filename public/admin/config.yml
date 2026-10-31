@@ -1,0 +1,45 @@
+# Writing UI at /admin/ (Sveltia CMS). Posts are saved as Markdown in src/content/blog/.
+# Locally: open http://localhost:4321/admin/ and choose "Work with Local Repository".
+# Live site: sign in with a GitHub token; every save is a commit to main.
+backend:
+  name: github
+  repo: ms802x/ms802x.github.io
+  branch: main
+  commit_messages:
+    create: 'Draft "{{slug}}"'
+    update: 'Update "{{slug}}"'
+    delete: 'Delete "{{slug}}"'
+    uploadMedia: 'Upload "{{path}}"'
+    deleteMedia: 'Delete "{{path}}"'
+
+site_url: https://ms802x.github.io
+display_url: https://ms802x.github.io
+
+media_folder: public/images/posts
+public_folder: /images/posts
+
+collections:
+  - name: blog
+    label: Posts
+    label_singular: Post
+    folder: src/content/blog
+    create: true
+    slug: '{{slug}}'
+    extension: md
+    format: frontmatter
+    preview_path: blog/{{slug}}/
+    sortable_fields: [date, title]
+    summary: '{{title}} — {{date}}{{draft | ternary(" (draft)", "")}}'
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: date, label: Date, widget: datetime, format: YYYY-MM-DD, time_format: false }
+      - { name: summary, label: Summary, widget: text, hint: One sentence on what the reader will learn. }
+      - { name: tags, label: Tags, widget: list, default: [] }
+      - name: lang
+        label: Language
+        widget: select
+        options: [{ label: English, value: en }, { label: Arabic, value: ar }]
+        default: en
+      - { name: draft, label: Draft (hidden on the live site), widget: boolean, default: true }
+      - { name: canonical_url, label: Canonical URL, widget: string, required: false, hint: Only if this was first published elsewhere. }
+      - { name: body, label: Body, widget: markdown }

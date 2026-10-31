@@ -1,104 +1,20 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import CosmicField from '../components/CosmicField.astro';
-import Icon from '../components/Icon.astro';
-import { SITE } from '../consts';
-import { formatDate, getPosts, postHref, readingTime } from '../lib/posts';
+import PostList from '../components/PostList.astro';
+import { getPosts } from '../lib/posts';
 
 const posts = await getPosts();
-const latest = posts.slice(0, 3);
 ---
 
 <BaseLayout>
-  <section class="home-hero">
-    <CosmicField class="home-cosmos" />
-    <div class="shell home-hero-inner">
-      <div class="home-hero-main">
-        <p class="home-eyebrow">
-          <span class="home-signal" aria-hidden="true"></span>
-          Ali Alhejab · Lead AI Engineer
-        </p>
-        <h1 class="home-title">
-          From latent space<br />
-          <span>to production.</span>
-        </h1>
-        <p class="home-lede">
-          I build agentic AI, real-time avatars, and generative image and video systems at HUMAIN.
-          Research-minded. Production-obsessed.
-        </p>
-        <div class="home-actions">
-          <a class="home-cta" href="/blog/">
-            Selected writing <Icon name="arrow-right" size={15} />
-          </a>
-          <a class="home-cta-secondary" href="/cv/">Curriculum vitae</a>
-        </div>
-      </div>
-
-      <div class="home-hero-foot">
-        <div class="home-coordinates">
-          <span>24.7136° N</span>
-          <span>46.6753° E</span>
-          <span>Riyadh, Saudi Arabia</span>
-        </div>
-        <a class="home-scroll" href="#writing">
-          <span class="home-scroll-line" aria-hidden="true"></span>
-          Scroll to explore
-        </a>
-      </div>
-    </div>
+  <section class="intro">
+    <h1>Ali Alhejab</h1>
+    <p>
+      Lead AI Engineer at HUMAIN. Notes on agents, diffusion models, and making inference fast:
+      what I measured, what broke, and what I'd do differently.
+    </p>
   </section>
 
-  <section class="home-writing" id="writing" aria-labelledby="home-writing-heading">
-    <div class="shell">
-      <div class="home-section-head">
-        <div>
-          <p class="section-label">Selected writing</p>
-          <h2 class="home-section-title" id="home-writing-heading">Notes from the work.</h2>
-        </div>
-        <a class="home-section-link" href="/blog/">All notes <Icon name="arrow-right" size={14} /></a>
-      </div>
-
-      <div class="home-post-list">
-        {
-          latest.map((post, index) => (
-            <a class="home-post" href={postHref(post)}>
-              <span class="home-post-index">0{index + 1}</span>
-              <span class="home-post-copy">
-                <span class="home-post-meta">
-                  {formatDate(post.data.date, post.data.lang)} · {readingTime(post.body, post.data.lang)} min read
-                  {post.data.draft && <span class="draft-badge">Draft</span>}
-                </span>
-                <span class="home-post-title" lang={post.data.lang} dir={post.data.lang === 'ar' ? 'rtl' : 'ltr'}>
-                  {post.data.title}
-                </span>
-              </span>
-              <span class="home-post-arrow" aria-hidden="true">↗</span>
-            </a>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <section class="home-profile" aria-labelledby="home-profile-heading">
-    <div class="shell home-profile-grid">
-      <div class="home-profile-heading">
-        <p class="section-label">Profile</p>
-        <h2 id="home-profile-heading">Where generative models meet production constraints.</h2>
-      </div>
-      <div class="home-profile-copy">
-        <p>
-          I'm Ali Alhejab, a Lead AI Engineer at HUMAIN. I built an in-house avatar platform that cut
-          costs by 92% versus third-party solutions, and I work across real-time agents, video
-          diffusion, and efficient inference. Before HUMAIN, I built AI systems at SDAIA and researched
-          photovoltaic systems at KAUST.
-        </p>
-        <div class="home-profile-links">
-          <a class="text-link" href="/about/">About</a>
-          <a class="text-link" href="/cv/">CV</a>
-          <a class="text-link" href={`mailto:${SITE.email}`}>Email</a>
-        </div>
-      </div>
-    </div>
-  </section>
+  <h2 class="list-heading">Writing</h2>
+  <PostList posts={posts} />
 </BaseLayout>

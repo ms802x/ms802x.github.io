@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import PostCard from '../../components/PostCard.astro';
+import PostList from '../../components/PostList.astro';
 import type { BlogPost } from '../../lib/posts';
 import { getPosts, getTags, tagSlug } from '../../lib/posts';
 
@@ -25,25 +25,10 @@ interface Props {
 const { tagName, posts } = Astro.props;
 ---
 
-<BaseLayout
-  title={`${tagName} — Writing`}
-  description={`Posts tagged ${tagName}: practical notes on AI engineering.`}
->
-  <header class="page-header">
-    <div class="shell page-header-grid">
-      <div>
-        <p class="page-kicker eyebrow">Tag</p>
-        <h1 class="page-title">{tagName}.</h1>
-      </div>
-      <p class="page-lede">
-        {posts.length} {posts.length === 1 ? 'post' : 'posts'} on this topic. Back to <a class="text-link" href="/blog/">all writing</a>.
-      </p>
-    </div>
-  </header>
-
-  <div class="shell">
-    <div class="blog-list">
-      {posts.map((post, index) => <PostCard post={post} index={index} headingLevel={2} />)}
-    </div>
-  </div>
+<BaseLayout title={tagName} description={`Posts about ${tagName}.`}>
+  <section class="page">
+    <p class="meta"><a href="/tags/">Topics</a></p>
+    <h1>{tagName}</h1>
+    <PostList posts={posts} />
+  </section>
 </BaseLayout>

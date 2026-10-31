@@ -1,10 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Icon from '../components/Icon.astro';
 import { SITE } from '../consts';
-
-const phone = '+966 50 573 0057';
-const phoneHref = 'tel:+966505730057';
 
 const experience = [
   {
@@ -13,10 +9,12 @@ const experience = [
     location: 'Riyadh, Saudi Arabia',
     dates: 'May 2025 – Present',
     bullets: [
-      'Built an in-house avatar platform, achieving a 92% cost reduction versus third-party solutions.',
-      'Developed and deployed real-time AI avatar agents as interactive virtual presenters and meeting facilitators, with conversational pipelines integrating STT, LLM, and TTS.',
-      'Pretrained and fine-tuned video diffusion models for custom avatar generation, optimizing inference for both CPU and GPU.',
-      'Built an in-house intent-detection model achieving 99% accuracy to route user requests within the conversational pipeline.',
+      'Built the in-house avatar video models, adapting architectures from published research: a half-body generation model distilled to few-step generation with DMD and Self Forcing, running in real time (25 fps, 720p) on a single NVIDIA L4, and a face-inpainting model serving 5+ concurrent streams per L4.',
+      'Optimized a compact avatar model to run on-device on the HUMAIN laptop NPU; deployed on-device models on mobile phones.',
+      'Pretrained and fine-tuned video diffusion models for custom avatar generation; optimized inference for both GPU and CPU deployment.',
+      'Fine-tuned LLMs with LoRA (Gemma E2B, E4B, and 31B) and optimized inference serving to reach 1.5 s end-to-end latency for the conversational avatar.',
+      'Developed real-time AI avatar agents (virtual presenters, meeting facilitators) with STT → LLM → TTS pipelines.',
+      'Built an agent-name-agnostic binary intent classifier (99% accuracy) to route user requests within the conversational pipeline.',
     ],
   },
   {
@@ -24,15 +22,13 @@ const experience = [
     company: 'SDAIA',
     location: 'Saudi Arabia',
     dates: 'Jun 2024 – May 2025',
-    intro:
-      'Research and development of AI models across computer vision, NLP, and generative modeling.',
     bullets: [
-      'Trained DETR and YOLO object-detection models for construction-site surveillance (helmets, vehicles, license plates, and people).',
-      'Built a sign-language-to-text translation system using T5 and AV-HuBERT; contributed to the Sign4All Challenge.',
-      'Fine-tuned LoRA modules for diffusion models (Flux, Hunyuan, Wan 2.1) for image and video generation.',
+      'Fine-tuned LoRA modules for image and video diffusion models (Flux, Hunyuan, Wan 2.1).',
       'Fine-tuned LLaMA and T5 for token-by-token image generation/understanding and conversational abilities.',
-      'Optimized inference with TensorRT (vision) and vLLM (LLMs); proficient with TeaCache for generation workflows.',
-      'Built scalable multi-GPU / multi-node training pipelines using HuggingFace Accelerate and DeepSpeed.',
+      'Optimized inference with TensorRT (vision models), vLLM (LLMs), and TeaCache (diffusion).',
+      'Built multi-GPU / multi-node training pipelines with Hugging Face Accelerate and DeepSpeed.',
+      'Built a sign-language-to-text translation system with T5 and AV-HuBERT (Sign4All Challenge).',
+      'Trained DETR and YOLO detectors for construction-site surveillance (helmets, vehicles, license plates, people).',
     ],
   },
   {
@@ -40,19 +36,8 @@ const experience = [
     company: 'KAUST',
     location: 'Saudi Arabia',
     dates: 'Aug 2022 – May 2024',
-    intro: 'Developed techniques to localize and identify faults in PV systems.',
     bullets: [
-      'Collaborated with the KAUST Solar Center to build a fast, cost-effective fault-localization algorithm for PV systems.',
-      'Partnered with NEOM to test new solar-glass technologies.',
-    ],
-  },
-  {
-    role: 'Technical Services Division Trainee',
-    company: 'Ithra, Saudi Aramco',
-    location: 'Saudi Arabia',
-    dates: 'Jun 2021 – Aug 2021',
-    bullets: [
-      'Member of the quality and maintenance inspection team during a summer internship.',
+      'Developed a single-voltage-sensor fault-localization method for PV systems with the KAUST Solar Center; tested solar-glass technologies with NEOM.',
     ],
   },
 ];
@@ -84,62 +69,52 @@ const publications = [
     year: '2026',
     title: 'Saudi Sign Language Translation Using T5',
     venue: 'Springer, Cham',
-    publisher: 'Springer',
   },
   {
     authors: 'A. Alhejab, M. Abbasi, S. Ahmed',
     year: '2025',
     title: 'A Single-Voltage-Sensor Bypass-Switch-Based Photovoltaic Fault Localization',
     venue: 'IEEE Journal of Photovoltaics',
-    publisher: 'IEEE',
   },
   {
     authors: 'O. Khalifa, A. S. Mohammed, A. Alhejab, et al.',
     year: '2024',
     title: 'Energy-Efficient Aerial Data Aggregation for IoT: From Prototyping to Large-Scale Implementation',
     venue: 'IEEE Transactions on Instrumentation and Measurement',
-    publisher: 'IEEE',
   },
   {
     authors: 'A. S. Mohammed, O. Khalifa, A. Alhejab, et al.',
     year: '2023',
     title: 'Energy-Efficient Aerial Data Aggregation in IoT Networks with WuR',
     venue: 'IEEE International Black Sea Conference on Communications and Networking',
-    publisher: 'IEEE',
   },
   {
     authors: 'A. Alhejab, Y. Mahnashi',
     year: '2024',
     title: 'A New Synthesis Method for Efficient Reconfigurable Switched-Capacitor Converters',
     venue: 'Authorea Preprints',
-    publisher: 'Authorea',
   },
 ];
 
 const certifications = [
   {
     title: 'NVIDIA Certified Associate — Generative AI (Multimodal) & Generative AI (LLM)',
-    detail: 'Riyadh, Saudi Arabia · Dec 2024',
+    detail: 'Dec 2024',
   },
   {
-    title: 'PV Design & Installation School',
-    detail: 'Thuwal, Saudi Arabia · Apr 2023 · 80-hour program on PV system design, installation, and commissioning',
-  },
-  {
-    title: 'Self-Driving Car Engineer Nanodegree',
-    detail: 'Online · Jun–Oct 2021 · Misk-sponsored, project-based program covering control systems, machine learning, and sensor fusion',
+    title: 'Self-Driving Car Engineer Nanodegree (Misk-sponsored)',
+    detail: 'Jun–Oct 2021',
   },
 ];
 
 const skills = [
-  { label: 'Programming', value: 'Python, C/C++, MATLAB' },
-  {
-    label: 'Software & tools',
-    value: 'Hugging Face, LLaMA-Factory, PyTorch, Git, Jupyter, KiCad, LTspice, LaTeX',
-  },
-  { label: 'Relevant coursework', value: 'Deep Learning for Visual Computing, Mathematics for Machine Learning, Renewables, Microwave Circuits, Computer Networks, IoT, Energy Harvesting' },
-  { label: 'Teaching', value: 'Deep Learning and Reinforcement Learning' },
-  { label: 'Languages', value: 'Arabic (native), English (advanced)' },
+  { label: 'Generative models', value: 'Video and image diffusion (Flux, Hunyuan, Wan 2.1); few-step distillation (DMD / DMD2); Self Forcing for autoregressive video; LoRA fine-tuning; inpainting' },
+  { label: 'LLMs', value: 'Gemma, LLaMA, T5, LoRA fine-tuning, LLaMA-Factory, vLLM, real-time STT → LLM → TTS agents' },
+  { label: 'Efficient inference', value: 'TensorRT, vLLM, TeaCache, torch.compile, FlashAttention, real-time GPU serving (NVIDIA L4), CPU inference' },
+  { label: 'Edge AI', value: 'On-device deployment (laptop NPU, mobile); ONNX Runtime, Qualcomm QNN / AI Hub, OpenVINO; quantization, pruning, distillation' },
+  { label: 'Training', value: 'PyTorch, Hugging Face, Accelerate, DeepSpeed (multi-GPU / multi-node)' },
+  { label: 'Vision', value: 'DETR, YOLO, AV-HuBERT' },
+  { label: 'Languages', value: 'Python, C/C++ · Arabic (native), English (advanced)' },
 ];
 
 const jsonLd = {
@@ -162,226 +137,114 @@ const jsonLd = {
     { '@type': 'CollegeOrUniversity', name: 'King Abdullah University of Science and Technology' },
     { '@type': 'CollegeOrUniversity', name: 'King Fahd University of Petroleum and Minerals' },
   ],
-  sameAs: ['https://github.com/ms802x', 'https://x.com/ms802x'],
+  sameAs: [SITE.github, SITE.x, SITE.scholar],
   knowsAbout: [
-    'Agentic AI',
     'Large language models',
+    'Agentic AI',
     'Image generation',
     'Video generation',
     'Diffusion models',
     'Computer vision',
     'Deep learning',
     'Inference optimization',
+    'Edge AI',
   ],
 };
 ---
 
 <BaseLayout
   title="CV"
-  description="Curriculum vitae of Ali A. Alhejab — Lead AI Engineer at HUMAIN, working on agentic AI, real-time avatars, and generative image and video systems."
+  description="CV of Ali A. Alhejab, Lead AI Engineer at HUMAIN: generative video and image models, LLMs, and edge AI."
   jsonLd={jsonLd}
 >
-  <div class="cv-denoise-layer" aria-hidden="true"></div>
-  <div class="cv-denoise-status" id="cv-denoise-status" role="status" hidden>
-    <span class="cv-denoise-pulse" aria-hidden="true"></span>
-    Denoising · <span id="cv-denoise-steps">50</span> steps
-  </div>
+  <section class="page">
+    <h1>Ali A. Alhejab</h1>
+    <p class="meta">
+      Lead AI Engineer · {SITE.location} ·{' '}
+      <a href={`mailto:${SITE.email}`}>{SITE.email}</a> ·{' '}
+      <a href={SITE.github}>github.com/ms802x</a> ·{' '}
+      <a href={SITE.scholar}>Google Scholar</a>
+      <span class="no-print">
+        {' · '}<a href="/cv/Ali-Alhejab-CV.pdf" download>PDF</a>
+      </span>
+    </p>
 
-  <header class="page-header cv-page-header">
-    <div class="shell">
-      <p class="page-kicker eyebrow">Curriculum Vitae</p>
-      <div class="cv-title-row">
-        <div>
-          <h1 class="page-title">Ali A. Alhejab.</h1>
-          <p class="cv-role">Lead AI Engineer · HUMAIN · Riyadh</p>
+    <p>
+      AI engineer focused on generative video and image models, LLMs, and edge AI. I build real-time
+      avatar video models (few-step distillation with DMD and Self Forcing), optimize models for
+      on-device inference on laptop NPUs and mobile, and build the LLM pipelines behind avatar
+      agents with 1.5 s end-to-end latency.
+    </p>
+
+    <h2>Experience</h2>
+    {experience.map((job) => (
+      <div class="cv-entry">
+        <div class="cv-entry-head">
+          <h3>{job.role}, {job.company}</h3>
+          <span class="meta">{job.dates}</span>
         </div>
-        <div class="cv-header-actions">
-          <button
-            class="button button-ghost cv-denoise-button"
-            id="cv-denoise-button"
-            type="button"
-            title="Run a diffusion-style denoising pass over the CV"
-          >
-            <span class="cv-denoise-dot" aria-hidden="true"></span>
-            Denoise
-          </button>
-          <a class="button button-primary" href="/cv/Ali-Alhejab-CV.pdf" download>
-            Download PDF <Icon name="arrow-up-right" size={16} />
-          </a>
-          <a class="button button-ghost" href={`mailto:${SITE.email}`}>Email</a>
+        <p class="meta">{job.location}</p>
+        <ul>
+          {job.bullets.map((bullet) => <li>{bullet}</li>)}
+        </ul>
+      </div>
+    ))}
+
+    <h2>Skills</h2>
+    <ul>
+      {skills.map((skill) => (
+        <li><strong>{skill.label}:</strong> {skill.value}</li>
+      ))}
+    </ul>
+
+    <h2>Education</h2>
+    {education.map((entry) => (
+      <div class="cv-entry">
+        <div class="cv-entry-head">
+          <h3>{entry.degree}</h3>
+          <span class="meta">{entry.dates}</span>
         </div>
+        <p class="meta">{entry.school} · {entry.location}</p>
+        <p>{entry.detail}. {entry.thesis}</p>
       </div>
-      <div class="cv-contact-line">
-        <span>{SITE.location}</span>
-        <a href={phoneHref}>{phone}</a>
-        <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
-        <a href={SITE.github} target="_blank" rel="me noopener noreferrer">github.com/ms802x</a>
-      </div>
-    </div>
-  </header>
+    ))}
 
-  <div class="cv-body">
-    <div class="shell cv-grid">
-      <main class="cv-main">
-        <section class="cv-section" aria-labelledby="profile-heading">
-          <h2 id="profile-heading">Profile</h2>
-          <p class="cv-summary">
-            Lead AI Engineer with hands-on experience across agentic AI, LLMs, generative image and
-            video, deep learning, and computer vision. I build production systems end to end — from
-            real-time conversational agents and custom avatar platforms to diffusion model training,
-            inference optimization, and multi-GPU pipelines.
-          </p>
-        </section>
+    <h2>Publications</h2>
+    <ol>
+      {publications.map((publication) => (
+        <li>
+          {publication.authors.replace(/\.$/, '')}. “{publication.title}.” <em>{publication.venue}</em>,{' '}
+          {publication.year}.
+        </li>
+      ))}
+    </ol>
+    <p class="meta no-print">
+      Most current record on <a href={SITE.scholar}>Google Scholar</a>.
+    </p>
 
-        <section class="cv-section" aria-labelledby="experience-heading">
-          <h2 id="experience-heading">Professional experience</h2>
-          <div class="cv-role-list">
-            {
-              experience.map((job) => (
-                <article class="cv-role">
-                  <div class="cv-role-head">
-                    <div>
-                      <h3>{job.role}</h3>
-                      <p class="cv-org">{job.company} · {job.location}</p>
-                    </div>
-                    <span class="cv-date">{job.dates}</span>
-                  </div>
-                  {job.intro && <p class="cv-role-intro">{job.intro}</p>}
-                  <ul class="cv-bullets">
-                    {job.bullets.map((bullet) => <li>{bullet}</li>)}
-                  </ul>
-                </article>
-              ))
-            }
-          </div>
-        </section>
+    <h2>Honors</h2>
+    <ul>
+      <li>
+        1st Place, Abu Dhabi University 11th Research Competition, 2023. Optimized Synthesis
+        Algorithm for a Two-Phase Switched-Capacitor Converter.
+      </li>
+      <li>
+        1st Place, KFUPM Senior Design Project EXPO, 2022. Low-Power IoT Data Aggregation System
+        Using a UAV as Data Aggregator.
+      </li>
+    </ul>
 
-        <section class="cv-section" aria-labelledby="publications-heading">
-          <div class="cv-section-head">
-            <h2 id="publications-heading">Selected publications</h2>
-            <a class="section-link" href="/publications/">All publications</a>
-          </div>
-          <ol class="cv-publications">
-            {
-              publications.map((publication) => (
-                <li class="cv-publication">
-                  <div class="cv-publication-meta">
-                    <span>{publication.publisher}</span>
-                    <span>{publication.year}</span>
-                  </div>
-                  <h3>{publication.title}</h3>
-                  <p>{publication.authors}</p>
-                  <p class="cv-publication-venue">{publication.venue}</p>
-                </li>
-              ))
-            }
-          </ol>
-        </section>
-      </main>
+    <h2>Certifications</h2>
+    <ul>
+      {certifications.map((certificate) => (
+        <li>{certificate.title}. <span class="meta">{certificate.detail}</span></li>
+      ))}
+    </ul>
 
-      <aside class="cv-aside">
-        <section class="cv-section" aria-labelledby="education-heading">
-          <h2 id="education-heading">Education</h2>
-          <div class="cv-education-list">
-            {
-              education.map((entry) => (
-                <article class="cv-education">
-                  <div class="cv-role-head">
-                    <h3>{entry.school}</h3>
-                    <span class="cv-date">{entry.dates}</span>
-                  </div>
-                  <p class="cv-org">{entry.location}</p>
-                  <p class="cv-degree">{entry.degree}</p>
-                  <p class="cv-detail">{entry.detail}</p>
-                  <p class="cv-detail">{entry.thesis}</p>
-                </article>
-              ))
-            }
-          </div>
-        </section>
 
-        <section class="cv-section" aria-labelledby="skills-heading">
-          <h2 id="skills-heading">Technical skills</h2>
-          <dl class="cv-skills">
-            {
-              skills.map((skill) => (
-                <div class="cv-skill">
-                  <dt>{skill.label}</dt>
-                  <dd>{skill.value}</dd>
-                </div>
-              ))
-            }
-          </dl>
-        </section>
-
-        <section class="cv-section" aria-labelledby="certifications-heading">
-          <h2 id="certifications-heading">Certifications</h2>
-          <ul class="cv-cert-list">
-            {
-              certifications.map((certificate) => (
-                <li>
-                  <h3>{certificate.title}</h3>
-                  <p>{certificate.detail}</p>
-                </li>
-              ))
-            }
-          </ul>
-        </section>
-
-        <section class="cv-section" aria-labelledby="awards-heading">
-          <h2 id="awards-heading">Honors & awards</h2>
-          <ul class="cv-award-list">
-            <li>
-              <strong>1st Place</strong> — Abu Dhabi University 11th Research Competition, 2023.
-              <span>Optimized Synthesis Algorithm for a Two-Phase Switched-Capacitor Converter.</span>
-            </li>
-            <li>
-              <strong>1st Place</strong> — KFUPM Senior Design Project EXPO, 2022.
-              <span>Low-Power IoT Data Aggregation System Using a UAV as Data Aggregator.</span>
-            </li>
-          </ul>
-        </section>
-      </aside>
-    </div>
-  </div>
-
-  <script>
-    const denoiseButton = document.getElementById('cv-denoise-button') as HTMLButtonElement | null;
-    const denoiseStatus = document.getElementById('cv-denoise-status');
-    const denoiseSteps = document.getElementById('cv-denoise-steps');
-
-    if (denoiseButton && denoiseStatus && denoiseSteps) {
-      denoiseButton.addEventListener('click', () => {
-        if (document.documentElement.classList.contains('cv-denoising')) return;
-
-        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        const duration = reduceMotion ? 350 : 1800;
-        let step = 50;
-        let timer: number | undefined;
-
-        document.documentElement.classList.add('cv-denoising');
-        denoiseStatus.hidden = false;
-        denoiseButton.disabled = true;
-        denoiseButton.classList.add('is-running');
-        denoiseSteps.textContent = String(step);
-
-        if (!reduceMotion) {
-          timer = window.setInterval(() => {
-            step = step <= 8 ? 4 : Math.max(4, Math.round(step * 0.82));
-            denoiseSteps.textContent = String(step);
-            if (step === 4 && timer) window.clearInterval(timer);
-          }, 100);
-        }
-
-        window.setTimeout(() => {
-          if (timer) window.clearInterval(timer);
-          document.documentElement.classList.remove('cv-denoising');
-          denoiseStatus.hidden = true;
-          denoiseButton.disabled = false;
-          denoiseButton.classList.remove('is-running');
-        }, duration);
-      });
-    }
-  </script>
-
+    <h2>Mentoring</h2>
+    <ul>
+      <li>Mentor, KAUST AI Academy (Deep Learning, Reinforcement Learning), 2023–2024.</li>
+    </ul>
+  </section>
 </BaseLayout>

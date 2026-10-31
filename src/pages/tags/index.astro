@@ -2,34 +2,18 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getPosts, getTags } from '../../lib/posts';
 
-const posts = await getPosts();
-const tags = getTags(posts);
+const tags = getTags(await getPosts());
 ---
 
-<BaseLayout title="Tags" description="All topics covered on the blog.">
-  <header class="page-header">
-    <div class="shell page-header-grid">
-      <div>
-        <p class="page-kicker eyebrow">Index</p>
-        <h1 class="page-title">Browse by topic.</h1>
-      </div>
-      <p class="page-lede">
-        {tags.length} topics across {posts.length} posts — from inference benchmarks and diffusion
-        sampling to Arabic speech and publishing.
-      </p>
-    </div>
-  </header>
-
-  <div class="shell">
-    <div class="tags-grid">
-      {
-        tags.map((tag) => (
-          <a class="tag-card" href={`/tags/${tag.slug}/`}>
-            <span class="tag-card-name">{tag.name}</span>
-            <span class="tag-card-count">{tag.count} {tag.count === 1 ? 'post' : 'posts'}</span>
-          </a>
-        ))
-      }
-    </div>
-  </div>
+<BaseLayout title="Topics" description="All topics covered on the blog.">
+  <section class="page">
+    <h1>Topics</h1>
+    <ul>
+      {tags.map((tag) => (
+        <li>
+          <a href={`/tags/${tag.slug}/`}>{tag.name}</a> <span class="meta">({tag.count})</span>
+        </li>
+      ))}
+    </ul>
+  </section>
 </BaseLayout>

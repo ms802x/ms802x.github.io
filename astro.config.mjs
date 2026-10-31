@@ -18,7 +18,7 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap({
-      filter: (page) => !page.endsWith('/404/'),
+      filter: (page) => !page.endsWith('/404/') && !page.endsWith('/admin/'),
     }),
   ],
   markdown: {
