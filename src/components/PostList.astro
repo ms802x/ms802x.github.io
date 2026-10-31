@@ -1,0 +1,37 @@
+---
+import type { BlogPost } from '../lib/posts';
+import { formatDate, postHref, readingTime } from '../lib/posts';
+
+interface Props {
+  posts: BlogPost[];
+}
+
+const { posts } = Astro.props;
+---
+
+{
+  posts.length > 0 ? (
+    <ol class="post-list">
+      {posts.map((post) => {
+        const lang = post.data.lang;
+        const dir = lang === 'ar' ? 'rtl' : 'ltr';
+        return (
+          <li class="post-item">
+            <div class="meta">
+              <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+              {' · '}
+              {readingTime(post.body, lang)} min read
+              {post.data.draft && <span class="draft">Draft</span>}
+            </div>
+            <h2 lang={lang} dir={dir}>
+              <a href={postHref(post)}>{post.data.title}</a>
+            </h2>
+            <p lang={lang} dir={dir}>{post.data.summary}</p>
+          </li>
+        );
+      })}
+    </ol>
+  ) : (
+    <p class="empty">Nothing published yet.</p>
+  )
+}

@@ -1,23 +1,28 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import TableOfContents from '../components/TableOfContents.astro';
-import type { MarkdownHeading } from 'astro';
 import 'katex/dist/katex.min.css';
-import { SITE } from '../consts';
+import { GISCUS, GISCUS_ENABLED, SITE } from '../consts';
 import type { BlogPost } from '../lib/posts';
 import { formatDate, formatDateISO, postHref, readingTime, tagSlug } from '../lib/posts';
 
 interface Props {
   post: BlogPost;
-  headings: MarkdownHeading[];
-  related?: BlogPost[];
+  newer?: BlogPost;
+  older?: BlogPost;
 }
 
-const { post, headings, related = [] } = Astro.props;
+const { post, newer, older } = Astro.props;
 const lang = post.data.lang;
 const dir = lang === 'ar' ? 'rtl' : 'ltr';
 const minutes = readingTime(post.body, lang);
 const siteURL = (Astro.site ?? new URL(SITE.fallbackUrl)).href.replace(/\/$/, '');
+const postURL = `${siteURL}${postHref(post)}`;
+const share = {
+  x: `https://x.com/intent/post?text=${encodeURIComponent(post.data.title)}&url=${encodeURIComponent(postURL)}`,
+  linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(postURL)}`,
+  hn: `https://news.ycombinator.com/submitlink?u=${encodeURIComponent(postURL)}&t=${encodeURIComponent(post.data.title)}`,
+};
+const replyHref = `mailto:${SITE.email}?subject=${encodeURIComponent(`Re: ${post.data.title}`)}`;
 const canonicalHost = post.data.canonical_url ? new URL(post.data.canonical_url).hostname : null;
 
 const jsonLd = {
@@ -41,7 +46,7 @@ const jsonLd = {
   },
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': `${siteURL}${postHref(post)}`,
+    '@id': postURL,
   },
   image: new URL('/og-default.png', `${siteURL}/`).href,
   isAccessibleForFree: true,
@@ -58,105 +63,98 @@ const jsonLd = {
   modifiedTime={post.data.date}
   jsonLd={jsonLd}
 >
-  <article class="post" lang={lang}>
-    <header class="post-header">
-      <div class="shell post-header-inner">
-        <a class="back-link" href="/blog/">← All writing</a>
-
-        <div class="post-kicker">
-          <span>Field notes</span>
-          <span class="post-kicker-sep" aria-hidden="true">/</span>
-          <span>{formatDate(post.data.date, lang)}</span>
-          {post.data.draft && (
-            <>
-              <span class="post-kicker-sep" aria-hidden="true">/</span>
-              <span class="draft-badge">Draft</span>
-            </>
-          )}
-        </div>
-
-        <h1 class="post-title" dir={dir}>{post.data.title}</h1>
-        <p class="post-deck" dir={dir}>{post.data.summary}</p>
-
-        <div class="post-byline">
-          <span class="byline-author">{SITE.author}</span>
-          <span aria-hidden="true">·</span>
-          <span>{minutes} min read</span>
-          {lang === 'ar' && <span class="lang-badge">العربية</span>}
-          <ul class="tag-list" aria-label="Tags">
-            {
-              post.data.tags.map((tag) => (
-                <li>
-                  <a class="tag" href={`/tags/${tagSlug(tag)}/`}>{tag}</a>
-                </li>
-              ))
-            }
-          </ul>
-        </div>
+  <article lang={lang}>
+    <header class="post-header" dir={dir}>
+      <h1>{post.data.title}</h1>
+      <p class="summary">{post.data.summary}</p>
+      <div class="meta" lang="en" dir="ltr">
+        <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+        {' · '}{minutes} min read
+        {post.data.tags.map((tag) => (
+          <>
+            {' · '}
+            <a href={`/tags/${tagSlug(tag)}/`}>{tag}</a>
+          </>
+        ))}
+        {post.data.draft && <span class="draft">Draft</span>}
       </div>
     </header>
 
-    <div class="shell post-body-shell">
-      <div class="post-grid">
-        <div class="post-main">
-          <div class="prose" dir={dir}>
-            <slot />
-          </div>
-
-          {post.data.canonical_url && (
-            <p class="post-canonical">
-              This article is also published at{' '}
-              <a href={post.data.canonical_url}>{canonicalHost}</a>. The canonical URL points there.
-            </p>
-          )}
-
-          <footer class="post-footer">
-            <p class="post-footer-label">Filed under</p>
-            <ul class="tag-list">
-              {
-                post.data.tags.map((tag) => (
-                  <li>
-                    <a class="tag" href={`/tags/${tagSlug(tag)}/`}>
-                      {tag}
-                    </a>
-                  </li>
-                ))
-              }
-            </ul>
-          </footer>
-        </div>
-
-        <aside class="post-side">
-          <TableOfContents headings={headings} />
-        </aside>
-      </div>
-
-      {
-        related.length > 0 && (
-          <section class="related-posts" aria-labelledby="related-heading">
-            <div class="section-head">
-              <div class="section-head-copy">
-                <p class="section-label">Keep reading</p>
-                <h2 class="section-title" id="related-heading">Related notes</h2>
-              </div>
-            </div>
-            <div class="related-grid">
-              {related.map((item) => (
-                <a class="related-card" href={postHref(item)}>
-                  <div class="post-meta">
-                    <time datetime={item.data.date.toISOString()}>{formatDate(item.data.date, item.data.lang)}</time>
-                    <span aria-hidden="true">·</span>
-                    <span>{readingTime(item.body, item.data.lang)} min read</span>
-                  </div>
-                  <h3 lang={item.data.lang} dir={item.data.lang === 'ar' ? 'rtl' : 'ltr'}>
-                    {item.data.title}
-                  </h3>
-                </a>
-              ))}
-            </div>
-          </section>
-        )
-      }
+    <div class="prose" dir={dir}>
+      <slot />
     </div>
+
+    {post.data.canonical_url && (
+      <p class="meta">
+        Originally published at <a href={post.data.canonical_url}>{canonicalHost}</a>.
+      </p>
+    )}
+
+    <footer class="post-end" lang="en" dir="ltr">
+      <p>
+        Questions, corrections, or a different result on your setup?{' '}
+        <a href={replyHref}>Reply by email</a>{GISCUS_ENABLED && ' or leave a comment below'}.
+      </p>
+      <div class="row meta">
+        <span>Share:</span>
+        <button type="button" id="copy-link" data-url={postURL}>Copy link</button>
+        <a href={share.x} target="_blank" rel="noopener noreferrer">X</a>
+        <a href={share.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href={share.hn} target="_blank" rel="noopener noreferrer">Hacker News</a>
+      </div>
+    </footer>
+
+    {GISCUS_ENABLED && <div class="comments giscus" />}
+
+    {(newer || older) && (
+      <nav class="post-nav" aria-label="More posts" lang="en">
+        {older ? <a href={postHref(older)}>← {older.data.title}</a> : <span />}
+        {newer ? <a href={postHref(newer)}>{newer.data.title} →</a> : <span />}
+      </nav>
+    )}
   </article>
+
+  <script>
+    const copy = document.getElementById('copy-link');
+    copy?.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(copy.dataset.url ?? location.href);
+        copy.textContent = 'Copied';
+      } catch {
+        copy.textContent = 'Copy failed';
+      }
+      setTimeout(() => (copy.textContent = 'Copy link'), 1800);
+    });
+  </script>
+
+  {GISCUS_ENABLED && (
+    <script is:inline define:vars={{ giscus: GISCUS }}>
+      const giscusTheme = () => (document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
+      const s = document.createElement('script');
+      s.src = 'https://giscus.app/client.js';
+      s.async = true;
+      s.crossOrigin = 'anonymous';
+      Object.entries({
+        repo: giscus.repo,
+        'repo-id': giscus.repoId,
+        category: giscus.category,
+        'category-id': giscus.categoryId,
+        mapping: 'pathname',
+        strict: '1',
+        'reactions-enabled': '1',
+        'input-position': 'top',
+        theme: giscusTheme(),
+        lang: 'en',
+        loading: 'lazy',
+      }).forEach(([key, value]) => s.setAttribute(`data-${key}`, value));
+      document.querySelector('.giscus')?.appendChild(s);
+
+      // Keep comments in sync with the theme toggle.
+      new MutationObserver(() => {
+        document
+          .querySelector('iframe.giscus-frame')
+          ?.contentWindow?.postMessage({ giscus: { setConfig: { theme: giscusTheme() } } }, 'https://giscus.app');
+      }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    </script>
+  )}
 </BaseLayout>

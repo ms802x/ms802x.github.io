@@ -30,12 +30,13 @@ jobs:
           # The alhejab.me domain is currently not resolving.
           # Override with a repository variable named SITE_URL when it is restored.
           SITE_URL: ${{ vars.SITE_URL || 'https://ms802x.github.io' }}
-          # Sample posts are drafts. Keep this true for the demo site, or
-          # remove it (or set it to false) once you publish real posts.
-          PUBLIC_INCLUDE_DRAFTS: "true"
-          # Set a repository secret named SITE_PASSWORD before launch.
-          SITE_GATE: "true"
-          SITE_PASSWORD: ${{ secrets.SITE_PASSWORD || 'aalhejab' }}
+          # Posts with draft: true are not published.
+          PUBLIC_INCLUDE_DRAFTS: "false"
+          # Comments (giscus). Set these as repository variables; comments stay off until they exist.
+          PUBLIC_GISCUS_REPO: ${{ vars.GISCUS_REPO }}
+          PUBLIC_GISCUS_REPO_ID: ${{ vars.GISCUS_REPO_ID }}
+          PUBLIC_GISCUS_CATEGORY: ${{ vars.GISCUS_CATEGORY }}
+          PUBLIC_GISCUS_CATEGORY_ID: ${{ vars.GISCUS_CATEGORY_ID }}
 
   deploy:
     name: Deploy
